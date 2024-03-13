@@ -1,0 +1,230 @@
+body,
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Times New Roman', Times, serif, Geneva, Tahoma, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 3px;
+    padding: 0;
+    height: 100%;
+    background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #b0b0b0 100px), repeating-linear-gradient(#000000, #3900ff);
+    background-color: #b0b0b0;
+}
+
+.layout {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid:
+        "header header header" 150px "aside main main" auto "footer footer footer" 100px / 240px auto auto;
+    gap: 10px;
+}
+
+.header {
+    grid-area: header;
+    background: rgba(242, 242, 242, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.header h1 {
+    font-size: 45px;
+    padding: 5px;
+    color: white;
+}
+
+.Logo-conteiner {
+    position: absolute;
+    top: 5px;
+    /* Ajusta según tu preferencia */
+    left: 6px;
+    /* Ajusta según tu preferencia */
+    z-index: 1;
+    /* Para asegurar que esté por encima del contenido */
+}
+
+.Logo-conteiner img {
+    height: 120px;
+    width: 120px;
+    border-radius: 40px;
+    margin: 10px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+.aside {
+    grid-area: aside;
+    background: rgba(242, 242, 242, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centrar verticalmente */
+    align-items: center;
+    /* Centrar horizontalmente */
+}
+
+.aside h2 {
+    color: white;
+    margin-bottom: 20px;
+    /* Espaciado inferior */
+}
+
+.aside nav {
+    background: rgba(242, 242, 242, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 150px;
+}
+
+.aside nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.aside nav li {
+    margin-right: 10px;
+}
+
+.aside nav a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: block;
+    padding: 10px;
+}
+
+.aside nav a:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.63);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+}
+
+.main {
+    grid-area: main;
+    background: rgba(242, 242, 242, 0.73);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    border-radius: 10px;
+    position: relative;
+    /* Agregamos posición relativa para contener el div de categorías */
+}
+
+.filtro-ropa {
+    position: absolute;
+    /* Hacemos que el div se posicione de forma absoluta */
+    top: 8px;
+    /* Lo posicionamos en la parte superior del contenedor padre (main) */
+    left: 50%;
+    /* Lo colocamos a la mitad horizontalmente */
+    transform: translateX(-50%);
+    /* Corregimos la posición al centro */
+    background: rgba(242, 242, 242, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    margin: 5px;
+}
+
+.filtro-ropa ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.filtro-ropa li {
+    margin-right: 10px;
+}
+
+.filtro-ropa a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: block;
+    /* Hacemos que los enlaces sean bloques para cubrir completamente el espacio */
+    padding: 10px;
+    /* Añadimos un relleno para que el área de efecto `hover` sea más grande */
+}
+
+.filtro-ropa a:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.63);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+}
+
+.box-prendas {
+    background: rgba(55, 0, 255, 0.711);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    position: relative;
+    /* Ajustamos a posición relativa */
+    margin-top: 110px;
+    /* Margen superior ajustado para evitar superposición con el filtro */
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.main .box-prendas {
+    height: auto;
+    width: auto;
+}
+
+.footer {
+    grid-area: footer;
+    background: rgba(242, 242, 242, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* Ajusta según sea necesario */
+}
+
+.footer img {
+    height: 50px;
+    width: 50px;
+
+}
+
+.contactos-conteiner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contactos-conteiner a {
+    margin: 0 15px;
+    /* Espacio entre los enlaces */
+}
