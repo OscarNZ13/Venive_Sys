@@ -1,21 +1,22 @@
 <?php
-// Datos de conexión
-$usuario = 'HR';
-$contraseña = '12345';
-$base_de_datos = 'DB_With_Schema';
+// Credenciales de la base de datos
+$usuario = 'Venive_sys';
+$contraseña = '202425';
+$bd_nombre = 'BD_Venive';
+$host = 'localhost';
 
-// Intenta establecer la conexión
-$conn = oci_connect($usuario, $contraseña, $base_de_datos);
+// Intentar la conexión
+$conn = oci_connect($usuario, $contraseña, "//{$host}/{$bd_nombre}");
 
-// Verifica si la conexión fue exitosa
+// Verificar si la conexión se realizó correctamente
 if (!$conn) {
-    $m = oci_error();
-    echo $m['message'], "\n";
-    exit;
+    $error = oci_error();
+    echo "Falló la conexión a la base de datos: " . $error['message'];
 } else {
-    echo "Conexión exitosa a Oracle SQL";
+    echo "Conexión exitosa a Oracle!";
+    
+    // Puedes realizar consultas u otras operaciones aquí
+    
+    // Cuando hayas terminado, cierra la conexión
+    oci_close($conn);
 }
-
-// Cierra la conexión al terminar
-oci_close($conn);
-?>
