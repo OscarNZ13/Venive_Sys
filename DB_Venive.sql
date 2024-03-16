@@ -1,3 +1,13 @@
+-- Crear tabla "Usuarios"
+CREATE TABLE Usuarios (
+    id_usuario NUMBER PRIMARY KEY,
+    nombre_usuario VARCHAR2(50),
+    contrasena VARCHAR2(200),
+    rol VARCHAR2(20) DEFAULT 'Administrador'
+);
+
+DELETE FROM Usuarios WHERE id_usuario = 1;
+
 -- Crear tabla "Sexo"
 CREATE TABLE Sexo (
     id_sexo NUMBER PRIMARY KEY,
@@ -48,12 +58,155 @@ CREATE TABLE Productos_Sexo (
     FOREIGN KEY (id_sexo) REFERENCES Sexo(id_sexo)
 );
 
+-- Creación de secuencia para el id_usuario en la tabla Usuarios
+CREATE SEQUENCE seq_id_usuario
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creación del trigger para asignar el id_usuario automáticamente en la tabla Usuarios
+CREATE OR REPLACE TRIGGER tr_id_usuario
+BEFORE INSERT ON Usuarios
+FOR EACH ROW
+BEGIN
+    :NEW.id_usuario := seq_id_usuario.NEXTVAL;
+END;
+/
+
+-- Creación de secuencia para el id_sexo en la tabla Sexo
+CREATE SEQUENCE seq_id_sexo
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creación del trigger para asignar el id_sexo automáticamente en la tabla Sexo
+CREATE OR REPLACE TRIGGER tr_id_sexo
+BEFORE INSERT ON Sexo
+FOR EACH ROW
+BEGIN
+    :NEW.id_sexo := seq_id_sexo.NEXTVAL;
+END;
+/
+
+-- Creación de secuencia para el id_categoria en la tabla Categorias
+CREATE SEQUENCE seq_id_categoria
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creación del trigger para asignar el id_categoria automáticamente en la tabla Categorias
+CREATE OR REPLACE TRIGGER tr_id_categoria
+BEFORE INSERT ON Categorias
+FOR EACH ROW
+BEGIN
+    :NEW.id_categoria := seq_id_categoria.NEXTVAL;
+END;
+/
+
+-- Creación de secuencia para el id_producto en la tabla Productos
+CREATE SEQUENCE seq_id_producto
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creación del trigger para asignar el id_producto automáticamente en la tabla Productos
+CREATE OR REPLACE TRIGGER tr_id_producto
+BEFORE INSERT ON Productos
+FOR EACH ROW
+BEGIN
+    :NEW.id_producto := seq_id_producto.NEXTVAL;
+END;
+/
+
+-- Creación de secuencia para el id_inventario en la tabla Inventario
+CREATE SEQUENCE seq_id_inventario
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creación del trigger para asignar el id_inventario automáticamente en la tabla Inventario
+CREATE OR REPLACE TRIGGER tr_id_inventario
+BEFORE INSERT ON Inventario
+FOR EACH ROW
+BEGIN
+    :NEW.id_inventario := seq_id_inventario.NEXTVAL;
+END;
+/
+
+-- Inserts para la tabla Usuarios:
+INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Oscar', 123);
+INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Andres', 456);
+
 -- Inserts para la tabla "Sexo"
-INSERT INTO Sexo (id_sexo, nombre_sexo) VALUES (1, 'Hombre');
-INSERT INTO Sexo (id_sexo, nombre_sexo) VALUES (2, 'Mujer');
+INSERT INTO Sexo (nombre_sexo) VALUES ('Hombre');
+INSERT INTO Sexo (nombre_sexo) VALUES ('Mujer');
 
 -- Inserts para la tabla "Categorias"
-INSERT INTO Categorias (id_categoria, nombre_categoria) VALUES (1, 'Pantalones');
-INSERT INTO Categorias (id_categoria, nombre_categoria) VALUES (2, 'Blusas');
-INSERT INTO Categorias (id_categoria, nombre_categoria) VALUES (3, 'Chaquetas');
-INSERT INTO Categorias (id_categoria, nombre_categoria) VALUES (4, 'Ropa deportiva');
+INSERT INTO Categorias (nombre_categoria) VALUES ('Pantalones');
+INSERT INTO Categorias (nombre_categoria) VALUES ('Blusas');
+INSERT INTO Categorias (nombre_categoria) VALUES ('Chaquetas');
+INSERT INTO Categorias (nombre_categoria) VALUES ('Ropa deportiva');
+
+
+--- Deletes ara pruebas: ---
+/*
+-- Eliminar todos los registros de la tabla Usuarios
+DELETE FROM Usuarios;
+
+-- Eliminar todos los registros de la tabla Sexo
+DELETE FROM Sexo;
+
+-- Eliminar todos los registros de la tabla Categorias
+DELETE FROM Categorias;
+*/
+
+-- Stored Procedure para la tabla "Usuarios"
+
+-- Insertar --
+CREATE OR REPLACE PROCEDURE InsertarUsuario (
+    p_nombre_usuario IN VARCHAR2,
+    p_contrasena IN VARCHAR2
+)
+IS
+BEGIN
+    INSERT INTO Usuarios (nombre_usuario, contrasena)
+    VALUES (p_nombre_usuario, p_contrasena);
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Usuario insertado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al insertar usuario: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    InsertarUsuario('Miguel', '789');
+END;
+/
+
+-- Eliminar --
+CREATE OR REPLACE PROCEDURE EliminarUsuario (
+    p_id_usuario IN NUMBER
+)
+IS
+BEGIN
+    DELETE FROM Usuarios WHERE id_usuario = p_id_usuario;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Usuario eliminado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al eliminar usuario: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    EliminarUsuario('numero del registro a eliminar');
+END;
+/
