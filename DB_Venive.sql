@@ -165,6 +165,8 @@ DELETE FROM Sexo;
 DELETE FROM Categorias;
 */
 
+SET SERVEROUTPUT ON;
+
 -- Stored Procedure para la tabla "Usuarios"
 
 -- Insertar --
@@ -208,5 +210,37 @@ END;
 
 BEGIN
     EliminarUsuario('numero del registro a eliminar');
+END;
+/
+
+-- Mostrar --
+CREATE OR REPLACE PROCEDURE MostrarUsuario(
+    p_id_usuario IN NUMBER
+)
+IS
+    v_id_usuario Usuarios.id_usuario%TYPE;
+    v_nombre_usuario Usuarios.nombre_usuario%TYPE;
+    v_rol Usuarios.rol%TYPE;
+BEGIN
+    -- Seleccionar la información del usuario
+    SELECT id_usuario, nombre_usuario, rol
+    INTO v_id_usuario, v_nombre_usuario, v_rol
+    FROM Usuarios
+    WHERE id_usuario = p_id_usuario;
+    
+    -- Mostrar la información del usuario
+    DBMS_OUTPUT.PUT_LINE('ID de Usuario: ' || v_id_usuario);
+    DBMS_OUTPUT.PUT_LINE('Nombre de Usuario: ' || v_nombre_usuario);
+    DBMS_OUTPUT.PUT_LINE('Rol: ' || v_rol);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontró un usuario con el ID especificado.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error al mostrar el usuario: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    MostrarUsuario(5); -- Puedes cambiar el ID aquí
 END;
 /
