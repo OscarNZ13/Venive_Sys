@@ -209,7 +209,7 @@ END;
 /
 
 BEGIN
-    EliminarUsuario('numero del registro a eliminar');
+    EliminarUsuario(); --ID del usuario a eliminar
 END;
 /
 
@@ -241,6 +241,6 @@ END;
 /
 
 BEGIN
-    MostrarUsuario(5); -- Puedes cambiar el ID aquí
+    MostrarUsuario(); --ID del usuario a mostrar
 END;
 /
