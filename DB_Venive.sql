@@ -20,6 +20,11 @@ CREATE TABLE Categorias (
     nombre_categoria VARCHAR2(50)
 );
 
+CREATE TABLE Tallas (
+    id_talla NUMBER PRIMARY KEY,
+    talla_abreviada VARCHAR2(3)
+);
+
 -- Crear tabla "Productos"
 CREATE TABLE Productos (
     id_producto NUMBER PRIMARY KEY,
@@ -33,30 +38,37 @@ CREATE TABLE Productos (
 
 -- Crear tabla "Inventario"
 CREATE TABLE Inventario (
-    id_inventario NUMBER PRIMARY KEY,
     id_producto NUMBER,
-    talla VARCHAR2(10),
+    id_talla NUMBER,
     cantidad_disponible NUMBER,
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+    PRIMARY KEY (id_producto, id_talla), -- Clave primaria compuesta
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricción ON DELETE CASCADE
+    FOREIGN KEY (id_talla) REFERENCES Tallas(id_talla) -- Clave foránea para la tabla Tallas
 );
+
+DROP TABLE Inventario;
 
 -- Crear tabla "Productos_Categorias"
 CREATE TABLE Productos_Categorias (
-    id_producto_categoria NUMBER PRIMARY KEY,
-    id_producto NUMBER,
     id_categoria NUMBER,
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    id_producto NUMBER,
+    PRIMARY KEY (id_categoria, id_producto), -- Clave primaria compuesta
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricción ON DELETE CASCADE
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
 
+DROP TABLE Productos_Categorias;
+
 -- Crear tabla "Productos_Sexo"
 CREATE TABLE Productos_Sexo (
-    id_producto_sexo NUMBER PRIMARY KEY,
-    id_producto NUMBER,
     id_sexo NUMBER,
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    id_producto NUMBER,
+    PRIMARY KEY (id_sexo, id_producto), -- Clave primaria compuesta
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricción ON DELETE CASCADE
     FOREIGN KEY (id_sexo) REFERENCES Sexo(id_sexo)
 );
+
+DROP TABLE Productos_Sexo;
 
 -- Creación de secuencia para el id_usuario en la tabla Usuarios
 CREATE SEQUENCE seq_id_usuario
@@ -106,6 +118,22 @@ BEGIN
 END;
 /
 
+-- Creación de secuencia para el id_talla en la tabla Tallas
+CREATE SEQUENCE seq_id_talla
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creación del trigger para asignar el id_talla automáticamente en la tabla Tallas
+CREATE OR REPLACE TRIGGER tr_id_talla
+BEFORE INSERT ON Tallas
+FOR EACH ROW
+BEGIN
+    :NEW.id_talla := seq_id_talla.NEXTVAL;
+END;
+/
+
 -- Creación de secuencia para el id_producto en la tabla Productos
 CREATE SEQUENCE seq_id_producto
     START WITH 1
@@ -119,22 +147,6 @@ BEFORE INSERT ON Productos
 FOR EACH ROW
 BEGIN
     :NEW.id_producto := seq_id_producto.NEXTVAL;
-END;
-/
-
--- Creación de secuencia para el id_inventario en la tabla Inventario
-CREATE SEQUENCE seq_id_inventario
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOMAXVALUE;
-
--- Creación del trigger para asignar el id_inventario automáticamente en la tabla Inventario
-CREATE OR REPLACE TRIGGER tr_id_inventario
-BEFORE INSERT ON Inventario
-FOR EACH ROW
-BEGIN
-    :NEW.id_inventario := seq_id_inventario.NEXTVAL;
 END;
 /
 
@@ -152,18 +164,13 @@ INSERT INTO Categorias (nombre_categoria) VALUES ('Blusas');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Chaquetas');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Ropa deportiva');
 
-
---- Deletes ara pruebas: ---
-/*
--- Eliminar todos los registros de la tabla Usuarios
-DELETE FROM Usuarios;
-
--- Eliminar todos los registros de la tabla Sexo
-DELETE FROM Sexo;
-
--- Eliminar todos los registros de la tabla Categorias
-DELETE FROM Categorias;
-*/
+-- Inserts para la tabla Tallas
+INSERT INTO Tallas (talla_abreviada) VALUES ('XS');
+INSERT INTO Tallas (talla_abreviada) VALUES ('S');
+INSERT INTO Tallas (talla_abreviada) VALUES ('M');
+INSERT INTO Tallas (talla_abreviada) VALUES ('L');
+INSERT INTO Tallas (talla_abreviada) VALUES ('XL');
+INSERT INTO Tallas (talla_abreviada) VALUES ('XXL');
 
 SET SERVEROUTPUT ON;
 
