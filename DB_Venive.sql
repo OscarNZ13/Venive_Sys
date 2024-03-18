@@ -33,8 +33,10 @@ CREATE TABLE Productos (
     precio_compra NUMBER,
     precio_venta NUMBER,
     porcentaje_ganancia NUMBER,
-    imagen VARCHAR2(200)
+    imagen VARCHAR2(2000)
 );
+
+DROP TABLE Productos;
 
 -- Crear tabla "Inventario"
 CREATE TABLE Inventario (
