@@ -29,12 +29,13 @@ CREATE TABLE Tallas (
 CREATE TABLE Productos (
     id_producto NUMBER PRIMARY KEY,
     nombre_producto VARCHAR2(100),
-    tipo VARCHAR2(50),
     precio_compra NUMBER,
     precio_venta NUMBER,
     porcentaje_ganancia NUMBER,
-    imagen VARCHAR2(200)
+    imagen VARCHAR2(2000)
 );
+
+DROP TABLE Productos;
 
 -- Crear tabla "Inventario"
 CREATE TABLE Inventario (
