@@ -1,21 +1,13 @@
 <?php
-// Datos de conexión
-$usuario = 'HR';
-$contraseña = '12345';
-$base_de_datos = 'DB_With_Schema';
+$usuario = 'Venive_User';
+$contrasena = '202425';
+$host = 'localhost/orcl';
 
-// Intenta establecer la conexión
-$conn = oci_connect($usuario, $contraseña, $base_de_datos);
+$dbconn = oci_connect($usuario, $contrasena, $host);
 
-// Verifica si la conexión fue exitosa
-if (!$conn) {
-    $m = oci_error();
-    echo $m['message'], "\n";
-    exit;
+if (!$dbconn) {
+    $error = oci_error();
+    trigger_error(htmlentities($error['message'], ENT_QUOTES), E_USER_ERROR);
 } else {
-    echo "Conexión exitosa a Oracle SQL";
+    echo 'Connected succesfully';
 }
-
-// Cierra la conexión al terminar
-oci_close($conn);
-?>

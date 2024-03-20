@@ -15,7 +15,7 @@
                 Venive
             </h1>
             <div class="Logo-conteiner">
-                <a href="url_del_endpoint">
+                <a href="login.php">
                     <img src="../Public/img/Venive_logo.png" alt="Venive logo">
                 </a>
             </div>
