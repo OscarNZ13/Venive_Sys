@@ -173,6 +173,67 @@ INSERT INTO Tallas (talla_abreviada) VALUES ('L');
 INSERT INTO Tallas (talla_abreviada) VALUES ('XL');
 INSERT INTO Tallas (talla_abreviada) VALUES ('XXL');
 
+-- Inserts para la tabla Productos
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (1, 'Jeans Skinny', 25000, 45000, 80, 'imagen_jeans_skinny.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (2, 'Blusa de Encaje Floral', 18000, 35000, 94, 'imagen_blusa_encaje_floral.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (3, 'Chaqueta de Cuero Clásica', 40000, 75000, 87, 'imagen_chaqueta_cuero.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (4, 'Leggings Deportivos', 15000, 28000, 87, 'imagen_leggings_deportivos.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (5, 'Pantalones Cargo', 30000, 55000, 83, 'imagen_pantalones_cargo.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (6, 'Camisa de Algodón', 22000, 42000, 91, 'imagen_camisa_algodon.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (7, 'Vestido Elegante', 35000, 68000, 94, 'imagen_vestido_elegante.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (8, 'Sudadera con Capucha', 28000, 52000, 86, 'imagen_sudadera_capucha.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (9, 'Camiseta Deportiva', 18000, 32000, 78, 'imagen_camiseta_deportiva.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (10, 'Falda Plisada', 25000, 48000, 92, 'imagen_falda_plisada.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (11, 'Abrigo de Lana', 55000, 95000, 73, 'imagen_abrigo_lana.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (12, 'Pantalones Vaqueros', 32000, 60000, 88, 'imagen_pantalones_vaqueros.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (13, 'Vestido Casual', 40000, 72000, 80, 'imagen_vestido_casual.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (14, 'Traje Formal', 70000, 125000, 78, 'imagen_traje_formal.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (15, 'Chaqueta Deportiva', 35000, 65000, 85, 'imagen_chaqueta_deportiva.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (16, 'Blusa Estampada', 28000, 52000, 86, 'imagen_blusa_estampada.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (17, 'Pantalón de Vestir', 42000, 78000, 85, 'imagen_pantalon_vestir.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (18, 'Vestido de Noche Elegante', 60000, 110000, 83, 'imagen_vestido_noche_elegante.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (19, 'Sweater Cuello V', 25000, 45000, 80, 'imagen_sweater_cuello_v.jpg');
+
+INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+VALUES (20, 'Jeans Rectos', 33000, 60000, 82, 'imagen_jeans_rectos.jpg');
+
 SET SERVEROUTPUT ON;
 
 -- Stored Procedure para la tabla "Usuarios"
