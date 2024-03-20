@@ -176,6 +176,137 @@ INSERT INTO Tallas (talla_abreviada) VALUES ('XXL');
 SET SERVEROUTPUT ON;
 
 -- Stored Procedure para la tabla "Usuarios"
+-- Inserts para tabla Productos
+
+--Blusas
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa de Algodón', 15, 30, 100, 'camisa_algodon.jpg');
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa Peplum de Rayas', 18, 36, 100, 'blusa_peplum.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa Transparente de Lunares', 19, 38, 100, 'blusa_transparente.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa de Lino Básica', 15, 30, 100, 'blusa_lino.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa Cropped de Algodón', 17, 34, 100, 'blusa_cropped.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa Asimétrica de Moda', 24, 48, 100, 'blusa_asimetrica.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa Cruzada de Gasa', 21, 42, 100, 'blusa_gasa.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa con Volantes en los Hombros', 23, 46, 100, 'blusa_volantes.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blusa Estampada de Flores', 20, 40, 100, 'blusa_flores.jpg');
+
+--Jeans
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Jeans Clásicos Colombianos', 20, 45, 125, 'jeans_clasicos.jpg');
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano de Tiro Alto', 30, 60, 100, 'pantalon_tiro_alto.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Levanta Cola Azul', 35, 70, 100, 'pantalon_levanta_cola_azul.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano Push Up', 32, 64, 100, 'pantalon_push_up.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano de Cintura Alta', 28, 56, 100, 'pantalon_cintura_alta.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano Estampado Floral', 33, 66, 100, 'pantalon_estampado_floral.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano de Cuero Sintético', 40, 80, 100, 'pantalon_cuero_sintetico.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano Skinny Negro', 30, 60, 100, 'pantalon_skinny_negro.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano Acampanado', 32, 64, 100, 'pantalon_acampanado.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano Jogger', 35, 70, 100, 'pantalon_jogger.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Colombiano Cargo', 38, 76, 100, 'pantalon_cargo.jpg');
+
+
+--Ropa deportiva
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Sudadera con Capucha', 25, 50, 100, 'sudadera_capucha.jpg');
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Leggings Deportivos Fit', 20, 40, 100, 'leggings_fit.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Top Deportivo Breathe', 15, 30, 100, 'top_breathe.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Conjunto Deportivo Energy', 35, 70, 100, 'conjunto_energy.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Shorts Deportivos Runner', 18, 36, 100, 'shorts_runner.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Camiseta Deportiva Flex', 22, 44, 100, 'camiseta_flex.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Sudadera Deportiva Zip', 25, 50, 100, 'sudadera_zip.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalón Deportivo Comfy', 24, 48, 100, 'pantalon_comfy.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Tank Top Active', 16, 32, 100, 'tank_top_active.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta Deportiva Windbreaker', 30, 60, 100, 'chaqueta_windbreaker.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Capris Deportivos Stretch', 21, 42, 100, 'capris_stretch.jpg');
+
+
+--Chaquetas
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta de Cuero City Nights', 50, 100, 100, 'chaqueta_cuero_city.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Blazer Elegance Fit', 40, 80, 100, 'blazer_elegance.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta Vaquera Classic', 30, 60, 100, 'chaqueta_vaquera_classic.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta Bomber Floral', 35, 70, 100, 'bomber_floral.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Parka Verde Explorer', 45, 90, 100, 'parka_verde_explorer.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta Puffer Winter Dream', 50, 100, 100, 'puffer_winter_dream.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Gabardina Clásica Rainy Days', 55, 110, 100, 'gabardina_classic.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta de Piel Soft Touch', 60, 120, 100, 'chaqueta_piel_soft.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Chaqueta Impermeable Adventure', 40, 80, 100, 'impermeable_adventure.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Cárdigan Largo Cozy Evenings', 35, 70, 100, 'cardigan_cozy.jpg');
+
 
 -- Insertar --
 CREATE OR REPLACE PROCEDURE InsertarUsuario (
