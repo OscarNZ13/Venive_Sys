@@ -1,3 +1,12 @@
+<?php
+// index.php:
+
+include_once '../Controller/index_controller.php';
+
+$indexController = new IndexController();
+$productos = $indexController->obtenerProductos();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,28 +20,22 @@
 <body>
     <section class="layout">
         <div class="header">
-            <h1>
-                Venive
-            </h1>
+            <h1>Venive</h1>
             <div class="Logo-conteiner">
                 <a href="login.php">
                     <img src="../Public/img/Venive_logo.png" alt="Venive logo">
                 </a>
             </div>
-
         </div>
         <div class="aside">
             <div class="nav-conteiner">
-                <h2>
-                    Catálogo
-                </h2>
+                <h2>Catálogo</h2>
                 <nav>
                     <ul>
                         <li><a href="#" class="C-HM">Hombre</a></li>
                         <li><a href="#" class="C-HM">Mujer</a></li>
                     </ul>
                 </nav>
-
             </div>
         </div>
         <div class="main">
@@ -45,35 +48,32 @@
                 </ul>
             </div>
             <div class="box-prendas">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                Acá van las prendas que vienen de la DB
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+                <div class="header-table">
+                    <?php if ($productos && count($productos) > 0) : ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Prenda</th>
+                                    <th>Precio</th>
+                                    <th>Imagen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($productos as $producto) : ?>
+                                    <tr>
+                                        <td><?= $producto['ID_PRODUCTO'] ?></td>
+                                        <td><?= $producto['NOMBRE_PRODUCTO'] ?></td>
+                                        <td><?= $producto['PRECIO_VENTA'] ?></td>
+                                        <td><img src="../Public/img/<?= $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else : ?>
+                        <p>No se encontraron productos.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
         <div class="footer">
