@@ -36,6 +36,7 @@ CREATE TABLE Productos (
 );
 
 DROP TABLE Productos;
+DELETE FROM Productos;
 
 -- Crear tabla "Inventario"
 CREATE TABLE Inventario (
@@ -513,3 +514,31 @@ END;
 
 --Ejecutamos
 EXEC MostrarPrenda(1);
+
+CREATE OR REPLACE PROCEDURE ObtenerProductos (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT id_producto, nombre_producto, imagen, precio_venta
+    FROM Productos;
+END;
+/
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(100);
+    imagen VARCHAR2(100);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductos(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+/
+SELECT id_producto, nombre_producto, imagen, precio_venta FROM Productos;
