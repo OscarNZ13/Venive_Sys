@@ -1,4 +1,6 @@
 <?php
+// User_Moder.php:
+
 include ('../Db/Connection_db.php');
 
 class UserModel
@@ -10,7 +12,7 @@ class UserModel
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ':username', $username);
         oci_execute($stmt);
-        
+
         $row = oci_fetch_assoc($stmt);
         $stored_hash = $row['CONTRASENA'];
 
@@ -45,5 +47,31 @@ class UserModel
         } else {
             return false; // Registro fallido
         }
+    }
+
+    public function obtenerProductos($conn, &$productos_cursor)
+    {
+        $productos = array();
+
+        // Llama al procedimiento almacenado para obtener los productos
+        $sql = "BEGIN ObtenerProductos(:productos_cursor); END;";
+        $stmt = oci_parse($conn, $sql);
+
+        // Bind de parámetros
+        oci_bind_by_name($stmt, ':productos_cursor', $productos_cursor, -1, OCI_B_CURSOR);
+
+        // Ejecutar el procedimiento almacenado
+        if (!oci_execute($stmt)) {
+            $e = oci_error($stmt);  // Obtiene el error de oci_execute
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+
+        // Recuperar los datos del cursor
+        oci_execute($productos_cursor);
+        while ($row = oci_fetch_assoc($productos_cursor)) {
+            $productos[] = $row;
+        }
+
+        return $productos;
     }
 }

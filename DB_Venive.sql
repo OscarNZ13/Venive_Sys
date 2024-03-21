@@ -208,36 +208,36 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 --Jeans
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Jeans Clásicos Colombianos', 20, 45, 125, 'jeans_clasicos.jpg');
+('Jeans Clasicos Colombianos', 20, 45, 125, 'jeans_clasicos.jpg');
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano de Tiro Alto', 30, 60, 100, 'pantalon_tiro_alto.jpg');
+('Pantalon Colombiano de Tiro Alto', 30, 60, 100, 'pantalon_tiro_alto.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Levanta Cola Azul', 35, 70, 100, 'pantalon_levanta_cola_azul.jpg');
+('Pantalon Levanta Cola Azul', 35, 70, 100, 'pantalon_levanta_cola_azul.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano Push Up', 32, 64, 100, 'pantalon_push_up.jpg');
+('Pantalon Colombiano Push Up', 32, 64, 100, 'pantalon_push_up.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano de Cintura Alta', 28, 56, 100, 'pantalon_cintura_alta.jpg');
+('Pantalon Colombiano de Cintura Alta', 28, 56, 100, 'pantalon_cintura_alta.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano Estampado Floral', 33, 66, 100, 'pantalon_estampado_floral.jpg');
+('Pantalon Colombiano Estampado Floral', 33, 66, 100, 'pantalon_estampado_floral.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano de Cuero Sintético', 40, 80, 100, 'pantalon_cuero_sintetico.jpg');
+('Pantalon Colombiano de Cuero Sintético', 40, 80, 100, 'pantalon_cuero_sintetico.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano Skinny Negro', 30, 60, 100, 'pantalon_skinny_negro.jpg');
+('Pantalon Colombiano Skinny Negro', 30, 60, 100, 'pantalon_skinny_negro.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano Acampanado', 32, 64, 100, 'pantalon_acampanado.jpg');
+('Pantalon Colombiano Acampanado', 32, 64, 100, 'pantalon_acampanado.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano Jogger', 35, 70, 100, 'pantalon_jogger.jpg');
+('Pantalon Colombiano Jogger', 35, 70, 100, 'pantalon_jogger.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Colombiano Cargo', 38, 76, 100, 'pantalon_cargo.jpg');
+('Pantalon Colombiano Cargo', 38, 76, 100, 'pantalon_cargo.jpg');
 
 
 --Ropa deportiva
@@ -296,7 +296,7 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 ('Chaqueta Puffer Winter Dream', 50, 100, 100, 'puffer_winter_dream.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Gabardina Clásica Rainy Days', 55, 110, 100, 'gabardina_classic.jpg');
+('Gabardina Clasica Rainy Days', 55, 110, 100, 'gabardina_classic.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Chaqueta de Piel Soft Touch', 60, 120, 100, 'chaqueta_piel_soft.jpg');
@@ -305,7 +305,7 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 ('Chaqueta Impermeable Adventure', 40, 80, 100, 'impermeable_adventure.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Cárdigan Largo Cozy Evenings', 35, 70, 100, 'cardigan_cozy.jpg');
+('Cardigan Largo Cozy Evenings', 35, 70, 100, 'cardigan_cozy.jpg');
 
 
 -- Insertar --
