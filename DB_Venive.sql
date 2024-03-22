@@ -6,8 +6,6 @@ CREATE TABLE Usuarios (
     rol VARCHAR2(20) DEFAULT 'Administrador'
 );
 
-DELETE FROM Usuarios WHERE id_usuario = 1;
-
 -- Crear tabla "Sexo"
 CREATE TABLE Sexo (
     id_sexo NUMBER PRIMARY KEY,
@@ -181,7 +179,8 @@ SET SERVEROUTPUT ON;
 
 --Blusas
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Blusa de Algodon', 15, 30, 100, 'camisa_algodon.jpg');
+('Blusa de Algodon', 15, 30, 100, 'https://bit.ly/3TKySai');
+
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Blusa Peplum de Rayas', 18, 36, 100, 'blusa_peplum.jpg');
 

@@ -1,0 +1,54 @@
+/* En tu archivo Style_tabla.css */
+
+/* Contenedor para la tabla con barra de desplazamiento */
+.tabla-container {
+    max-height: 400px; /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+    border-radius: 10px; /* Añade un borde redondeado al contenedor */
+    background: rgba(55, 0, 255, 0.711); /* Color de fondo */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra */
+    backdrop-filter: blur(5.5px); /* Filtro de desenfoque */
+    -webkit-backdrop-filter: blur(5.5px); /* Filtro de desenfoque para Safari */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Borde */
+    padding: 10px; /* Espaciado interno */
+}
+
+/* Estilo para la tabla */
+.main .box-prendas table.mi-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden; /* Para evitar que el borde se salga del contenedor */
+}
+
+/* Estilo para las celdas de la cabecera */
+.main .box-prendas th {
+    background-color: #3f51b5; /* Cambiamos el color de fondo */
+    color: white; /* Cambiamos el color del texto */
+    padding: 12px 8px; /* Ajustamos el padding */
+    text-align: left;
+    border: 1px solid #3f51b5; /* Igualamos el color del borde */
+}
+
+/* Estilo para las celdas de los datos */
+.main .box-prendas td {
+    padding: 12px 8px; /* Ajustamos el padding */
+    border: 1px solid #3f51b5; /* Igualamos el color del borde */
+}
+
+/* Estilo para las filas impares */
+.main .box-prendas tbody tr:nth-child(odd) {
+    background-color: #e8eaf6; /* Cambiamos el color de fondo */
+}
+
+/* Estilo para las filas cuando pasas el ratón por encima */
+.main .box-prendas tbody tr:hover {
+    background-color: #c5cae9; /* Cambiamos el color de fondo */
+}
+
+/* Estilo para la imagen dentro de las celdas */
+.main .box-prendas td img {
+    width: 80px; /* Reducimos el tamaño de la imagen */
+    height: auto;
+    border-radius: 5px; /* Añadimos un ligero redondeo a las imágenes */
+}

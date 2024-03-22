@@ -15,6 +15,7 @@ $productos = $indexController->obtenerProductos();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="../Public/css/style.css" rel="stylesheet">
+    <link href="../Public/css/Style_tabla.css" rel="stylesheet">
 </head>
 
 <body>
@@ -50,26 +51,28 @@ $productos = $indexController->obtenerProductos();
             <div class="box-prendas">
                 <div class="header-table">
                     <?php if ($productos && count($productos) > 0) : ?>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Codigo</th>
-                                    <th>Prenda</th>
-                                    <th>Precio</th>
-                                    <th>Imagen</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($productos as $producto) : ?>
+                        <div class="tabla-container"> <!-- Aquí agregamos el contenedor -->
+                            <table class="mi-tabla">
+                                <thead>
                                     <tr>
-                                        <td><?= $producto['ID_PRODUCTO'] ?></td>
-                                        <td><?= $producto['NOMBRE_PRODUCTO'] ?></td>
-                                        <td><?= $producto['PRECIO_VENTA'] ?></td>
-                                        <td><img src="../Public/img/<?= $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
+                                        <th>Codigo</th>
+                                        <th>Prenda</th>
+                                        <th>Precio</th>
+                                        <th>Imagen</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($productos as $producto) : ?>
+                                        <tr>
+                                            <td><?= $producto['ID_PRODUCTO'] ?></td>
+                                            <td><?= $producto['NOMBRE_PRODUCTO'] ?></td>
+                                            <td><?= $producto['PRECIO_VENTA'] ?></td>
+                                            <td><img src="../Public/img/<?= $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     <?php else : ?>
                         <p>No se encontraron productos.</p>
                     <?php endif; ?>
