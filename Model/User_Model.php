@@ -49,9 +49,10 @@ class UserModel
         }
     }
 
-    public function obtenerProductos($conn, &$productos_cursor)
+    public function obtenerProductos($conn)
     {
         $productos = array();
+        $productos_cursor = oci_new_cursor($conn);
 
         // Llama al procedimiento almacenado para obtener los productos
         $sql = "BEGIN ObtenerProductos(:productos_cursor); END;";
@@ -71,6 +72,10 @@ class UserModel
         while ($row = oci_fetch_assoc($productos_cursor)) {
             $productos[] = $row;
         }
+
+        // Cerrar el cursor y liberar recursos
+        oci_free_statement($stmt);
+        oci_free_statement($productos_cursor);
 
         return $productos;
     }

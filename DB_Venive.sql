@@ -44,8 +44,8 @@ CREATE TABLE Inventario (
     id_talla NUMBER,
     cantidad_disponible NUMBER,
     PRIMARY KEY (id_producto, id_talla), -- Clave primaria compuesta
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci�n ON DELETE CASCADE
-    FOREIGN KEY (id_talla) REFERENCES Tallas(id_talla) -- Clave for�nea para la tabla Tallas
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci?n ON DELETE CASCADE
+    FOREIGN KEY (id_talla) REFERENCES Tallas(id_talla) -- Clave for?nea para la tabla Tallas
 );
 
 DROP TABLE Inventario;
@@ -55,7 +55,7 @@ CREATE TABLE Productos_Categorias (
     id_categoria NUMBER,
     id_producto NUMBER,
     PRIMARY KEY (id_categoria, id_producto), -- Clave primaria compuesta
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci�n ON DELETE CASCADE
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci?n ON DELETE CASCADE
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
 
@@ -66,20 +66,20 @@ CREATE TABLE Productos_Sexo (
     id_sexo NUMBER,
     id_producto NUMBER,
     PRIMARY KEY (id_sexo, id_producto), -- Clave primaria compuesta
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci�n ON DELETE CASCADE
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci?n ON DELETE CASCADE
     FOREIGN KEY (id_sexo) REFERENCES Sexo(id_sexo)
 );
 
 DROP TABLE Productos_Sexo;
 
--- Creaci�n de secuencia para el id_usuario en la tabla Usuarios
+-- Creaci?n de secuencia para el id_usuario en la tabla Usuarios
 CREATE SEQUENCE seq_id_usuario
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOMAXVALUE;
 
--- Creaci�n del trigger para asignar el id_usuario autom�ticamente en la tabla Usuarios
+-- Creaci?n del trigger para asignar el id_usuario autom?ticamente en la tabla Usuarios
 CREATE OR REPLACE TRIGGER tr_id_usuario
 BEFORE INSERT ON Usuarios
 FOR EACH ROW
@@ -88,14 +88,14 @@ BEGIN
 END;
 /
 
--- Creaci�n de secuencia para el id_sexo en la tabla Sexo
+-- Creaci?n de secuencia para el id_sexo en la tabla Sexo
 CREATE SEQUENCE seq_id_sexo
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOMAXVALUE;
 
--- Creaci�n del trigger para asignar el id_sexo autom�ticamente en la tabla Sexo
+-- Creaci?n del trigger para asignar el id_sexo autom?ticamente en la tabla Sexo
 CREATE OR REPLACE TRIGGER tr_id_sexo
 BEFORE INSERT ON Sexo
 FOR EACH ROW
@@ -104,14 +104,14 @@ BEGIN
 END;
 /
 
--- Creaci�n de secuencia para el id_categoria en la tabla Categorias
+-- Creaci?n de secuencia para el id_categoria en la tabla Categorias
 CREATE SEQUENCE seq_id_categoria
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOMAXVALUE;
 
--- Creaci�n del trigger para asignar el id_categoria autom�ticamente en la tabla Categorias
+-- Creaci?n del trigger para asignar el id_categoria autom?ticamente en la tabla Categorias
 CREATE OR REPLACE TRIGGER tr_id_categoria
 BEFORE INSERT ON Categorias
 FOR EACH ROW
@@ -120,14 +120,14 @@ BEGIN
 END;
 /
 
--- Creaci�n de secuencia para el id_talla en la tabla Tallas
+-- Creaci?n de secuencia para el id_talla en la tabla Tallas
 CREATE SEQUENCE seq_id_talla
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOMAXVALUE;
 
--- Creaci�n del trigger para asignar el id_talla autom�ticamente en la tabla Tallas
+-- Creaci?n del trigger para asignar el id_talla autom?ticamente en la tabla Tallas
 CREATE OR REPLACE TRIGGER tr_id_talla
 BEFORE INSERT ON Tallas
 FOR EACH ROW
@@ -136,14 +136,14 @@ BEGIN
 END;
 /
 
--- Creaci�n de secuencia para el id_producto en la tabla Productos
+-- Creaci?n de secuencia para el id_producto en la tabla Productos
 CREATE SEQUENCE seq_id_producto
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOMAXVALUE;
 
--- Creaci�n del trigger para asignar el id_producto autom�ticamente en la tabla Productos
+-- Creaci?n del trigger para asignar el id_producto autom?ticamente en la tabla Productos
 CREATE OR REPLACE TRIGGER tr_id_producto
 BEFORE INSERT ON Productos
 FOR EACH ROW
@@ -181,7 +181,7 @@ SET SERVEROUTPUT ON;
 
 --Blusas
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Blusa de Algodón', 15, 30, 100, 'camisa_algodon.jpg');
+('Blusa de Algodon', 15, 30, 100, 'camisa_algodon.jpg');
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Blusa Peplum de Rayas', 18, 36, 100, 'blusa_peplum.jpg');
 
@@ -189,13 +189,13 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 ('Blusa Transparente de Lunares', 19, 38, 100, 'blusa_transparente.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Blusa de Lino Básica', 15, 30, 100, 'blusa_lino.jpg');
+('Blusa de Lino Basica', 15, 30, 100, 'blusa_lino.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Blusa Cropped de Algodón', 17, 34, 100, 'blusa_cropped.jpg');
+('Blusa Cropped de Algodon', 17, 34, 100, 'blusa_cropped.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Blusa Asimétrica de Moda', 24, 48, 100, 'blusa_asimetrica.jpg');
+('Blusa Asimetrica de Moda', 24, 48, 100, 'blusa_asimetrica.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Blusa Cruzada de Gasa', 21, 42, 100, 'blusa_gasa.jpg');
@@ -207,7 +207,6 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 ('Blusa Estampada de Flores', 20, 40, 100, 'blusa_flores.jpg');
 
 --Jeans
-
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Jeans Clasicos Colombianos', 20, 45, 125, 'jeans_clasicos.jpg');
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
@@ -226,7 +225,7 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 ('Pantalon Colombiano Estampado Floral', 33, 66, 100, 'pantalon_estampado_floral.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalon Colombiano de Cuero Sintético', 40, 80, 100, 'pantalon_cuero_sintetico.jpg');
+('Pantalon Colombiano de Cuero Sintetico', 40, 80, 100, 'pantalon_cuero_sintetico.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Pantalon Colombiano Skinny Negro', 30, 60, 100, 'pantalon_skinny_negro.jpg');
@@ -240,9 +239,7 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Pantalon Colombiano Cargo', 38, 76, 100, 'pantalon_cargo.jpg');
 
-
 --Ropa deportiva
-
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Sudadera con Capucha', 25, 50, 100, 'sudadera_capucha.jpg');
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
@@ -264,7 +261,7 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 ('Sudadera Deportiva Zip', 25, 50, 100, 'sudadera_zip.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
-('Pantalón Deportivo Comfy', 24, 48, 100, 'pantalon_comfy.jpg');
+('Pantalon Deportivo Comfy', 24, 48, 100, 'pantalon_comfy.jpg');
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Tank Top Active', 16, 32, 100, 'tank_top_active.jpg');
@@ -275,9 +272,7 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Capris Deportivos Stretch', 21, 42, 100, 'capris_stretch.jpg');
 
-
 --Chaquetas
-
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Chaqueta de Cuero City Nights', 50, 100, 100, 'chaqueta_cuero_city.jpg');
 
@@ -307,7 +302,6 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Cardigan Largo Cozy Evenings', 35, 70, 100, 'cardigan_cozy.jpg');
-
 
 -- Insertar --
 CREATE OR REPLACE PROCEDURE InsertarUsuario (
@@ -362,19 +356,19 @@ IS
     v_nombre_usuario Usuarios.nombre_usuario%TYPE;
     v_rol Usuarios.rol%TYPE;
 BEGIN
-    -- Seleccionar la informaci�n del usuario
+    -- Seleccionar la informaci?n del usuario
     SELECT id_usuario, nombre_usuario, rol
     INTO v_id_usuario, v_nombre_usuario, v_rol
     FROM Usuarios
     WHERE id_usuario = p_id_usuario;
     
-    -- Mostrar la informaci�n del usuario
+    -- Mostrar la informaci?n del usuario
     DBMS_OUTPUT.PUT_LINE('ID de Usuario: ' || v_id_usuario);
     DBMS_OUTPUT.PUT_LINE('Nombre de Usuario: ' || v_nombre_usuario);
     DBMS_OUTPUT.PUT_LINE('Rol: ' || v_rol);
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr� un usuario con el ID especificado.');
+        DBMS_OUTPUT.PUT_LINE('No se encontr? un usuario con el ID especificado.');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error al mostrar el usuario: ' || SQLERRM);
 END;
@@ -394,16 +388,16 @@ CREATE OR REPLACE PROCEDURE Authenticate_User (
 AS
     v_count NUMBER;
 BEGIN
-    -- Verificar si las credenciales son v�lidas
+    -- Verificar si las credenciales son v?lidas
     SELECT COUNT(*) INTO v_count
     FROM Usuarios
     WHERE nombre_usuario = p_username AND contrasena = p_password;
     
-    -- Asignar 1 si las credenciales son v�lidas, 0 en caso contrario
+    -- Asignar 1 si las credenciales son v?lidas, 0 en caso contrario
     IF v_count > 0 THEN
-        p_auth_status := 1; -- Autenticaci�n exitosa
+        p_auth_status := 1; -- Autenticaci?n exitosa
     ELSE
-        p_auth_status := 0; -- Autenticaci�n fallida
+        p_auth_status := 0; -- Autenticaci?n fallida
     END IF;
 END;
 /
@@ -506,7 +500,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Imagen: ' || v_imagen);
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontró una prenda con el ID especificado.');
+        DBMS_OUTPUT.PUT_LINE('No se encontr� una prenda con el ID especificado.');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error al mostrar la prenda: ' || SQLERRM);
 END;

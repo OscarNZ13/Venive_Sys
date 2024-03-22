@@ -11,5 +11,5 @@ if (!$dbconn) {
     $error = oci_error();
     trigger_error(htmlentities($error['message'], ENT_QUOTES), E_USER_ERROR);
 } else {
-    echo 'Connected successfully';
+    echo '';
 }
