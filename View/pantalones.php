@@ -4,7 +4,7 @@
 include_once '../Controller/index_controller.php';
 
 $indexController = new IndexController();
-$productos = $indexController->obtenerProductos();
+$productospant = $indexController->obtenerProductosPantalones();
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +42,7 @@ $productos = $indexController->obtenerProductos();
         <div class="main">
             <div class="filtro-ropa">
                 <ul>
-                    <li><a href="pantalones.php" class="">Pantalones</a></li>
+                <li><a href="pantalones.php" class="">Pantalones</a></li>
                     <li><a href="blusas.php" class="">Blusas</a></li>
                     <li><a href="#" class="">Chaquetas</a></li>
                     <li><a href="#" class="">Deportiva</a></li>
@@ -50,7 +50,7 @@ $productos = $indexController->obtenerProductos();
             </div>
             <div class="box-prendas">
                 <div class="header-table">
-                    <?php if ($productos && count($productos) > 0) : ?>
+                    <?php if ($productospant && count($productospant) > 0) : ?>
                         <div class="tabla-container"> <!-- Aquí agregamos el contenedor -->
                             <table class="mi-tabla">
                                 <thead>
@@ -62,12 +62,12 @@ $productos = $indexController->obtenerProductos();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($productos as $producto) : ?>
+                                    <?php foreach ($productospant as $productospant) : ?>
                                         <tr>
-                                            <td><?= $producto['ID_PRODUCTO'] ?></td>
-                                            <td><?= $producto['NOMBRE_PRODUCTO'] ?></td>
-                                            <td><?= $producto['PRECIO_VENTA'] ?></td>
-                                            <td><img src="../Public/img/<?= $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
+                                            <td><?= $productospant['ID_PRODUCTO'] ?></td>
+                                            <td><?= $productospant['NOMBRE_PRODUCTO'] ?></td>
+                                            <td><?= $productospant['PRECIO_VENTA'] ?></td>
+                                            <td><img src="../Public/img/<?= $productospant['IMAGEN'] ?>" alt="<?= $productospant['NOMBRE_PRODUCTO'] ?>"></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

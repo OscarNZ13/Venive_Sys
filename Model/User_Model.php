@@ -1,7 +1,7 @@
 <?php
 // User_Moder.php:
 
-include ('../Db/Connection_db.php');
+include('../Db/Connection_db.php');
 
 class UserModel
 {
@@ -78,5 +78,67 @@ class UserModel
         oci_free_statement($productos_cursor);
 
         return $productos;
+    }
+
+    public function obtenerProductosPantalones($conn)
+    {
+        $productospant = array();
+        $productos_cursor = oci_new_cursor($conn);
+
+        // Llama al procedimiento almacenado para obtener los productos que son pantalones
+        $sql = "BEGIN ObtenerProductosPantalon(:productos_cursor); END;";
+        $stmt = oci_parse($conn, $sql);
+
+        // Bind de parámetros
+        oci_bind_by_name($stmt, ':productos_cursor', $productos_cursor, -1, OCI_B_CURSOR);
+
+        // Ejecutar el procedimiento almacenado
+        if (!oci_execute($stmt)) {
+            $e = oci_error($stmt);  // Obtiene el error de oci_execute
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+
+        // Recuperar los datos del cursor
+        oci_execute($productos_cursor);
+        while ($row = oci_fetch_assoc($productos_cursor)) {
+            $productospant[] = $row;
+        }
+
+        // Cerrar el cursor y liberar recursos
+        oci_free_statement($stmt);
+        oci_free_statement($productos_cursor);
+
+        return $productospant;
+    }
+
+    public function obtenerProductosBlusas($conn)
+    {
+        $productosblusa = array();
+        $productos_cursor = oci_new_cursor($conn);
+
+        // Llama al procedimiento almacenado para obtener los productos que son blusas
+        $sql = "BEGIN ObtenerProductosBlusas(:productos_cursor); END;";
+        $stmt = oci_parse($conn, $sql);
+
+        // Bind de parámetros
+        oci_bind_by_name($stmt, ':productos_cursor', $productos_cursor, -1, OCI_B_CURSOR);
+
+        // Ejecutar el procedimiento almacenado
+        if (!oci_execute($stmt)) {
+            $e = oci_error($stmt);  // Obtiene el error de oci_execute
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+
+        // Recuperar los datos del cursor
+        oci_execute($productos_cursor);
+        while ($row = oci_fetch_assoc($productos_cursor)) {
+            $productosblusa[] = $row;
+        }
+
+        // Cerrar el cursor y liberar recursos
+        oci_free_statement($stmt);
+        oci_free_statement($productos_cursor);
+
+        return $productosblusa;
     }
 }

@@ -499,7 +499,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Imagen: ' || v_imagen);
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr� una prenda con el ID especificado.');
+        DBMS_OUTPUT.PUT_LINE('No se encontr� una prenda con el ID especificado.');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error al mostrar la prenda: ' || SQLERRM);
 END;
@@ -535,3 +535,60 @@ BEGIN
 END;
 /
 SELECT id_producto, nombre_producto, imagen, precio_venta FROM Productos;
+
+CREATE OR REPLACE PROCEDURE ObtenerProductosPantalon (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT id_producto, nombre_producto, imagen, precio_venta
+    FROM Productos
+    WHERE UPPER(nombre_producto) LIKE '%PANTALON%'; -- Utilizamos UPPER para hacer la búsqueda insensible a mayúsculas/minúsculas
+END;
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(100);
+    imagen VARCHAR2(100);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductosPantalon(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+
+--Procedimiento almacenado que solo muestre blusas
+CREATE OR REPLACE PROCEDURE ObtenerProductosBlusas (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT id_producto, nombre_producto, imagen, precio_venta
+    FROM Productos
+    WHERE UPPER(nombre_producto) LIKE '%BLUSA%'; -- Utilizamos UPPER para hacer la búsqueda insensible a mayúsculas/minúsculas
+END;
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(100);
+    imagen VARCHAR2(100);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductosBlusas(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+--Procedimiento almacenado que solo muestre chaquetas
+--Procedimiento almacenado que solo muestre deportivas
+--Procedimiento almacenado que solo muestre productos de hombre
+--Procedimiento almacenado que solo muestre productos de mujer

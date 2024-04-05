@@ -16,4 +16,26 @@ class IndexController
 
         return $productos;
     }
+
+    public function obtenerProductosPantalones()
+    {
+        $userModel = new UserModel();
+        $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
+
+        // Obtener los productos del modelo
+        $productospant = $userModel->obtenerProductosPantalones($conn);
+
+        return $productospant;
+    }
+
+    public function obtenerProductosBlusas()
+    {
+        $userModel = new UserModel();
+        $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
+
+        // Obtener los productos del modelo
+        $productosblusa = $userModel->ObtenerProductosBlusas($conn);
+
+        return $productosblusa;
+    }
 }
