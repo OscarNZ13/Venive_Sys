@@ -150,6 +150,37 @@ BEGIN
 END;
 /
 
+--Creacion de trigger que asigna automáticamente un producto a su categoría y sexo correspondientes
+CREATE OR REPLACE TRIGGER AsignarCategoriaYSexo
+AFTER INSERT ON Productos
+FOR EACH ROW
+BEGIN
+    -- Verificar el nombre del producto y asignar la categoría correspondiente
+    IF UPPER(:NEW.nombre_producto) LIKE '%PANTALON%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Pantalones'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%BLUSA%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Blusas'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%CHAQUETA%' OR UPPER(:NEW.nombre_producto) LIKE '%CARDIGAN%' OR UPPER(:NEW.nombre_producto) LIKE '%GABARDINA%' OR UPPER(:NEW.nombre_producto) LIKE '%PARKA%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Chaquetas'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%DEPORTIVO%' OR UPPER(:NEW.nombre_producto) LIKE '%SPORT%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Ropa deportiva'), :NEW.id_producto);
+    END IF;
+    
+    -- Asignar el sexo correspondiente al producto
+    IF UPPER(:NEW.nombre_producto) LIKE '%MUJER%' OR UPPER(:NEW.nombre_producto) LIKE '%FEMENINO%' THEN
+        INSERT INTO Productos_Sexo (id_sexo, id_producto)
+        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%HOMBRE%' OR UPPER(:NEW.nombre_producto) LIKE '%MASCULINO%' THEN
+        INSERT INTO Productos_Sexo (id_sexo, id_producto)
+        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), :NEW.id_producto);
+    END IF;
+END;
+/
+
 -- Inserts para la tabla Usuarios:
 INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Oscar', 123);
 INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Andres', 456);
