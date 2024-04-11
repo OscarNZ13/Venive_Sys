@@ -33,9 +33,6 @@ CREATE TABLE Productos (
     imagen VARCHAR2(2000)
 );
 
-DROP TABLE Productos;
-DELETE FROM Productos;
-
 -- Crear tabla "Inventario"
 CREATE TABLE Inventario (
     id_producto NUMBER,
@@ -46,8 +43,6 @@ CREATE TABLE Inventario (
     FOREIGN KEY (id_talla) REFERENCES Tallas(id_talla) -- Clave for?nea para la tabla Tallas
 );
 
-DROP TABLE Inventario;
-
 -- Crear tabla "Productos_Categorias"
 CREATE TABLE Productos_Categorias (
     id_categoria NUMBER,
@@ -56,8 +51,6 @@ CREATE TABLE Productos_Categorias (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci?n ON DELETE CASCADE
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
-
-DROP TABLE Productos_Categorias;
 
 -- Crear tabla "Productos_Sexo"
 CREATE TABLE Productos_Sexo (
@@ -68,6 +61,13 @@ CREATE TABLE Productos_Sexo (
     FOREIGN KEY (id_sexo) REFERENCES Sexo(id_sexo)
 );
 
+-- Drop de todas las tablas:
+DROP TABLE Sexo;
+DROP TABLE Categorias;
+DROP TABLE Tallas;
+DROP TABLE Productos;
+DROP TABLE Inventario;
+DROP TABLE Productos_Categorias;
 DROP TABLE Productos_Sexo;
 
 -- Creaci?n de secuencia para el id_usuario en la tabla Usuarios
@@ -475,6 +475,7 @@ WHERE (Productos.nombre_producto LIKE '%Cardigan%'
     OR Productos.nombre_producto LIKE '%Blazer%')
 AND Categorias.nombre_categoria = 'Chaquetas';
 
+DELETE FROM Productos_Sexo;
 DELETE FROM Productos_Categorias;
 
 
