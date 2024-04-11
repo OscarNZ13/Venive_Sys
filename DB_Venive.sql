@@ -618,7 +618,7 @@ END;
 /
 
 --Ejecutamos
-EXEC EliminarPrenda(1);
+EXEC EliminarPrenda(148);
 
 -- Modificar prenda
 CREATE OR REPLACE PROCEDURE ModificarPrenda (
