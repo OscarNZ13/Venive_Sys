@@ -150,6 +150,37 @@ BEGIN
 END;
 /
 
+--Creacion de trigger que asigna automáticamente un producto a su categoría y sexo correspondientes
+CREATE OR REPLACE TRIGGER AsignarCategoriaYSexo
+AFTER INSERT ON Productos
+FOR EACH ROW
+BEGIN
+    -- Verificar el nombre del producto y asignar la categoría correspondiente
+    IF UPPER(:NEW.nombre_producto) LIKE '%PANTALON%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Pantalones'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%BLUSA%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Blusas'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%CHAQUETA%' OR UPPER(:NEW.nombre_producto) LIKE '%CARDIGAN%' OR UPPER(:NEW.nombre_producto) LIKE '%GABARDINA%' OR UPPER(:NEW.nombre_producto) LIKE '%PARKA%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Chaquetas'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%DEPORTIVO%' OR UPPER(:NEW.nombre_producto) LIKE '%SPORT%' THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Ropa deportiva'), :NEW.id_producto);
+    END IF;
+    
+    -- Asignar el sexo correspondiente al producto
+    IF UPPER(:NEW.nombre_producto) LIKE '%MUJER%' OR UPPER(:NEW.nombre_producto) LIKE '%FEMENINO%' THEN
+        INSERT INTO Productos_Sexo (id_sexo, id_producto)
+        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), :NEW.id_producto);
+    ELSIF UPPER(:NEW.nombre_producto) LIKE '%HOMBRE%' OR UPPER(:NEW.nombre_producto) LIKE '%MASCULINO%' THEN
+        INSERT INTO Productos_Sexo (id_sexo, id_producto)
+        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), :NEW.id_producto);
+    END IF;
+END;
+/
+
 -- Inserts para la tabla Usuarios:
 INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Oscar', 123);
 INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Andres', 456);
@@ -163,6 +194,8 @@ INSERT INTO Categorias (nombre_categoria) VALUES ('Pantalones');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Blusas');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Chaquetas');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Ropa deportiva');
+
+DELETE FROM Productos_Sexo;
 
 -- Inserts para la tabla Tallas
 INSERT INTO Tallas (talla_abreviada) VALUES ('XS');
@@ -301,6 +334,149 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Cardigan Largo Cozy Evenings', 35, 70, 100, 'cardigan_cozy.jpg');
+
+
+--Agregar inserts a tablas miselaneas
+
+-- Productos para hombre
+-- Pantalones
+INSERT INTO Productos_Sexo (id_sexo, id_producto)
+SELECT (SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), id_producto
+FROM Productos WHERE nombre_producto IN (
+    'Jeans Clasicos Colombianos',
+    'Pantalon Colombiano de Tiro Alto',
+    'Pantalon Levanta Cola Azul',
+    'Pantalon Colombiano Push Up',
+    'Pantalon Colombiano de Cintura Alta',
+    'Pantalon Colombiano Estampado Floral',
+    'Pantalon Colombiano de Cuero Sintetico',
+    'Pantalon Colombiano Skinny Negro',
+    'Pantalon Colombiano Acampanado',
+    'Pantalon Colombiano Jogger',
+    'Pantalon Colombiano Cargo'
+);
+
+-- Ropa deportiva
+INSERT INTO Productos_Sexo (id_sexo, id_producto)
+SELECT (SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), id_producto
+FROM Productos WHERE nombre_producto IN (
+    'Sudadera con Capucha',
+    'Leggings Deportivos Fit',
+    'Top Deportivo Breathe',
+    'Conjunto Deportivo Energy',
+    'Shorts Deportivos Runner',
+    'Camiseta Deportiva Flex',
+    'Sudadera Deportiva Zip',
+    'Pantalon Deportivo Comfy',
+    'Tank Top Active',
+    'Chaqueta Deportiva Windbreaker',
+    'Capris Deportivos Stretch'
+);
+
+-- Chaquetas
+INSERT INTO Productos_Sexo (id_sexo, id_producto)
+SELECT (SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), id_producto
+FROM Productos WHERE nombre_producto IN (
+    'Chaqueta de Cuero City Nights',
+    'Blazer Elegance Fit',
+    'Chaqueta Vaquera Classic',
+    'Chaqueta Bomber Floral',
+    'Parka Verde Explorer',
+    'Chaqueta Puffer Winter Dream',
+    'Gabardina Clasica Rainy Days',
+    'Chaqueta de Piel Soft Touch',
+    'Chaqueta Impermeable Adventure',
+    'Cardigan Largo Cozy Evenings'
+);
+
+-- Productos para mujer
+-- Blusas
+INSERT INTO Productos_Sexo (id_sexo, id_producto)
+SELECT (SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), id_producto
+FROM Productos WHERE nombre_producto IN (
+    'Blusa de Algodon',
+    'Blusa Peplum de Rayas',
+    'Blusa Transparente de Lunares',
+    'Blusa de Lino Basica',
+    'Blusa Cropped de Algodon',
+    'Blusa Asimetrica de Moda',
+    'Blusa Cruzada de Gasa',
+    'Blusa con Volantes en los Hombros',
+    'Blusa Estampada de Flores'
+);
+
+-- Ropa deportiva
+INSERT INTO Productos_Sexo (id_sexo, id_producto)
+SELECT (SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), id_producto
+FROM Productos WHERE nombre_producto IN (
+    'Sudadera con Capucha',
+    'Leggings Deportivos Fit',
+    'Top Deportivo Breathe',
+    'Conjunto Deportivo Energy',
+    'Shorts Deportivos Runner',
+    'Camiseta Deportiva Flex',
+    'Sudadera Deportiva Zip',
+    'Pantalon Deportivo Comfy',
+    'Tank Top Active',
+    'Chaqueta Deportiva Windbreaker',
+    'Capris Deportivos Stretch'
+);
+
+-- Chaquetas
+INSERT INTO Productos_Sexo (id_sexo, id_producto)
+SELECT (SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), id_producto
+FROM Productos WHERE nombre_producto IN (
+    'Chaqueta de Cuero City Nights',
+    'Blazer Elegance Fit',
+    'Chaqueta Vaquera Classic',
+    'Chaqueta Bomber Floral',
+    'Parka Verde Explorer',
+    'Chaqueta Puffer Winter Dream',
+    'Gabardina Clasica Rainy Days',
+    'Chaqueta de Piel Soft Touch',
+    'Chaqueta Impermeable Adventure',
+    'Cardigan Largo Cozy Evenings'
+);
+
+--Productos por su categoria
+INSERT INTO Productos_Categorias (id_categoria, id_producto)
+SELECT id_categoria, id_producto
+FROM Productos, Categorias
+WHERE Productos.nombre_producto LIKE '%Blusa%'
+AND Categorias.nombre_categoria = 'Blusas';
+
+-- Pantalones
+INSERT INTO Productos_Categorias (id_categoria, id_producto)
+SELECT id_categoria, id_producto
+FROM Productos, Categorias
+WHERE (Productos.nombre_producto LIKE '%Pantalon%'
+    OR Productos.nombre_producto LIKE '%Jeans%')
+AND Categorias.nombre_categoria = 'Pantalones';
+
+-- Ropa deportiva
+INSERT INTO Productos_Categorias (id_categoria, id_producto)
+SELECT id_categoria, id_producto
+FROM Productos, Categorias
+WHERE (Productos.nombre_producto LIKE '%Sudadera%'
+    OR Productos.nombre_producto LIKE '%Deportivos%'
+    OR Productos.nombre_producto LIKE '%Deportivo%'
+    OR Productos.nombre_producto LIKE '%Deportiva%'
+    OR Productos.nombre_producto LIKE '%Active%')
+AND Categorias.nombre_categoria = 'Ropa deportiva';
+
+-- Chaquetas
+INSERT INTO Productos_Categorias (id_categoria, id_producto)
+SELECT id_categoria, id_producto
+FROM Productos, Categorias
+WHERE (Productos.nombre_producto LIKE '%Cardigan%'
+    OR Productos.nombre_producto LIKE '%Gabardina%'
+    OR Productos.nombre_producto LIKE '%Parka%'
+    OR Productos.nombre_producto LIKE '%Chaqueta%'
+    OR Productos.nombre_producto LIKE '%Blazer%')
+AND Categorias.nombre_categoria = 'Chaquetas';
+
+DELETE FROM Productos_Categorias;
+
 
 -- Insertar --
 CREATE OR REPLACE PROCEDURE InsertarUsuario (
@@ -499,7 +675,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Imagen: ' || v_imagen);
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr� una prenda con el ID especificado.');
+        DBMS_OUTPUT.PUT_LINE('No se encontr? una prenda con el ID especificado.');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error al mostrar la prenda: ' || SQLERRM);
 END;
@@ -536,14 +712,17 @@ END;
 /
 SELECT id_producto, nombre_producto, imagen, precio_venta FROM Productos;
 
+--Procedimiento almacenado que solo muestre pantalones
 CREATE OR REPLACE PROCEDURE ObtenerProductosPantalon (
     productos_cursor OUT SYS_REFCURSOR
 ) AS
 BEGIN
     OPEN productos_cursor FOR
-    SELECT id_producto, nombre_producto, imagen, precio_venta
-    FROM Productos
-    WHERE UPPER(nombre_producto) LIKE '%PANTALON%'; -- Utilizamos UPPER para hacer la búsqueda insensible a mayúsculas/minúsculas
+    SELECT P.id_producto, P.nombre_producto, P.imagen, P.precio_venta
+    FROM Productos P
+    JOIN Productos_Categorias PC ON P.id_producto = PC.id_producto
+    JOIN Categorias C ON PC.id_categoria = C.id_categoria
+    WHERE UPPER(C.nombre_categoria) = 'PANTALONES';
 END;
 
 DECLARE
@@ -568,10 +747,13 @@ CREATE OR REPLACE PROCEDURE ObtenerProductosBlusas (
 ) AS
 BEGIN
     OPEN productos_cursor FOR
-    SELECT id_producto, nombre_producto, imagen, precio_venta
-    FROM Productos
-    WHERE UPPER(nombre_producto) LIKE '%BLUSA%'; -- Utilizamos UPPER para hacer la búsqueda insensible a mayúsculas/minúsculas
+    SELECT P.id_producto, P.nombre_producto, P.imagen, P.precio_venta
+    FROM Productos P
+    JOIN Productos_Categorias PC ON P.id_producto = PC.id_producto
+    JOIN Categorias C ON PC.id_categoria = C.id_categoria
+    WHERE UPPER(C.nombre_categoria) = 'BLUSAS';
 END;
+/
 
 DECLARE
     productos_cursor SYS_REFCURSOR;
@@ -588,7 +770,125 @@ BEGIN
     END LOOP;
     CLOSE productos_cursor;
 END;
+
 --Procedimiento almacenado que solo muestre chaquetas
+CREATE OR REPLACE PROCEDURE ObtenerProductosChaquetas (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT P.id_producto, P.nombre_producto, P.imagen, P.precio_venta
+    FROM Productos P
+    JOIN Productos_Categorias PC ON P.id_producto = PC.id_producto
+    JOIN Categorias C ON PC.id_categoria = C.id_categoria
+    WHERE UPPER(C.nombre_categoria) = 'CHAQUETAS';
+END;
+/
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(1000);
+    imagen VARCHAR2(1000);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductosChaquetas(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+
 --Procedimiento almacenado que solo muestre deportivas
+CREATE OR REPLACE PROCEDURE ObtenerProductosRopaDeportiva (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT P.id_producto, P.nombre_producto, P.imagen, P.precio_venta
+    FROM Productos P
+    JOIN Productos_Categorias PC ON P.id_producto = PC.id_producto
+    JOIN Categorias C ON PC.id_categoria = C.id_categoria
+    WHERE UPPER(C.nombre_categoria) = 'ROPA DEPORTIVA';
+END;
+/
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(100);
+    imagen VARCHAR2(100);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductosRopaDeportiva(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+
 --Procedimiento almacenado que solo muestre productos de hombre
+CREATE OR REPLACE PROCEDURE ObtenerProductosHombre (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT P.id_producto, P.nombre_producto, P.imagen, P.precio_venta
+    FROM Productos P
+    JOIN Productos_Sexo PS ON P.id_producto = PS.id_producto
+    JOIN Sexo S ON PS.id_sexo = S.id_sexo
+    WHERE UPPER(S.nombre_sexo) = 'HOMBRE';
+END;
+/
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(100);
+    imagen VARCHAR2(100);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductosHombre(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+/
+
 --Procedimiento almacenado que solo muestre productos de mujer
+CREATE OR REPLACE PROCEDURE ObtenerProductosHombre (
+    productos_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN productos_cursor FOR
+    SELECT P.id_producto, P.nombre_producto, P.imagen, P.precio_venta
+    FROM Productos P
+    JOIN Productos_Sexo PS ON P.id_producto = PS.id_producto
+    JOIN Sexo S ON PS.id_sexo = S.id_sexo
+    WHERE UPPER(S.nombre_sexo) = 'MUJER';
+END;
+/
+
+DECLARE
+    productos_cursor SYS_REFCURSOR;
+    id_producto NUMBER;
+    nombre_producto VARCHAR2(100);
+    imagen VARCHAR2(100);
+    precio_venta NUMBER;
+BEGIN
+    ObtenerProductosHombre(productos_cursor);
+    LOOP
+        FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
+        EXIT WHEN productos_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
+    END LOOP;
+    CLOSE productos_cursor;
+END;
+/

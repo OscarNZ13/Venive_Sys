@@ -33,8 +33,8 @@ $productos = $indexController->obtenerProductos();
                 <h2>Catálogo</h2>
                 <nav>
                     <ul>
-                        <li><a href="#" class="C-HM">Hombre</a></li>
-                        <li><a href="#" class="C-HM">Mujer</a></li>
+                        <li><a href="hombre.php" class="C-HM">Hombre</a></li>
+                        <li><a href="mujer.php" class="C-HM">Mujer</a></li>
                     </ul>
                 </nav>
             </div>
@@ -44,8 +44,8 @@ $productos = $indexController->obtenerProductos();
                 <ul>
                     <li><a href="pantalones.php" class="">Pantalones</a></li>
                     <li><a href="blusas.php" class="">Blusas</a></li>
-                    <li><a href="#" class="">Chaquetas</a></li>
-                    <li><a href="#" class="">Deportiva</a></li>
+                    <li><a href="chaquetas.php" class="">Chaquetas</a></li>
+                    <li><a href="deportiva.php" class="">Deportiva</a></li>
                 </ul>
             </div>
             <div class="box-prendas">
