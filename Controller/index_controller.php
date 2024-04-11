@@ -2,40 +2,63 @@
 // index_controller.php:
 
 include_once '../Model/User_model.php';
+include_once '../Model/Productos_Model.php';
 include_once '../Db/connection_db.php';
 
 class IndexController
 {
     public function obtenerProductos()
     {
-        $userModel = new UserModel();
+        $productosModel = new ProductosModel();
         $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
 
         // Obtener los productos del modelo
-        $productos = $userModel->obtenerProductos($conn);
+        $productos = $productosModel->obtenerProductos($conn);
 
         return $productos;
     }
 
     public function obtenerProductosPantalones()
     {
-        $userModel = new UserModel();
+        $productosModel = new ProductosModel();
         $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
 
         // Obtener los productos del modelo
-        $productospant = $userModel->obtenerProductosPantalones($conn);
+        $productospant = $productosModel->obtenerProductosPantalones($conn);
 
         return $productospant;
     }
 
     public function obtenerProductosBlusas()
     {
-        $userModel = new UserModel();
+        $productosModel = new ProductosModel();
         $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
 
         // Obtener los productos del modelo
-        $productosblusa = $userModel->ObtenerProductosBlusas($conn);
+        $productosblusa = $productosModel->ObtenerProductosBlusas($conn);
 
         return $productosblusa;
+    }
+
+    public function obtenerProductosChaquetas()
+    {
+        $productosModel = new ProductosModel();
+        $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
+
+        // Obtener los productos del modelo
+        $productoschaquetas = $productosModel->ObtenerProductosChaquetas($conn);
+
+        return $productoschaquetas;
+    }
+
+    public function obtenerProductosRopaDeportiva()
+    {
+        $productosModel = new ProductosModel();
+        $conn = $GLOBALS['dbconn']; // Utiliza la conexión establecida en connection_db.php
+
+        // Obtener los productos del modelo
+        $productosdeportiva = $productosModel->obtenerProductosRopaDeportiva($conn);
+
+        return $productosdeportiva;
     }
 }

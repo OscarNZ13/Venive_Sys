@@ -4,7 +4,7 @@
 include_once '../Controller/index_controller.php';
 
 $indexController = new IndexController();
-$productosblusa = $indexController->ObtenerProductosBlusas();
+$productosdeportiva = $indexController->obtenerProductosRopaDeportiva();
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +50,7 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
             </div>
             <div class="box-prendas">
                 <div class="header-table">
-                    <?php if ($productosblusa && count($productosblusa) > 0) : ?>
+                    <?php if ($productosdeportiva && count($productosdeportiva) > 0) : ?>
                         <div class="tabla-container"> <!-- Aquí agregamos el contenedor -->
                             <table class="mi-tabla">
                                 <thead>
@@ -62,12 +62,12 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($productosblusa as $productosblusa) : ?>
+                                    <?php foreach ($productosdeportiva as $productosdeportiva) : ?>
                                         <tr>
-                                            <td><?= $productosblusa['ID_PRODUCTO'] ?></td>
-                                            <td><?= $productosblusa['NOMBRE_PRODUCTO'] ?></td>
-                                            <td><?= $productosblusa['PRECIO_VENTA'] ?></td>
-                                            <td><img src="../Public/img/<?= $productosblusa['IMAGEN'] ?>" alt="<?= $productosblusa['NOMBRE_PRODUCTO'] ?>"></td>
+                                            <td><?= $productosdeportiva['ID_PRODUCTO'] ?></td>
+                                            <td><?= $productosdeportiva['NOMBRE_PRODUCTO'] ?></td>
+                                            <td><?= $productosdeportiva['PRECIO_VENTA'] ?></td>
+                                            <td><img src="../Public/img/<?= $productosdeportiva['IMAGEN'] ?>" alt="<?= $productosdeportiva['NOMBRE_PRODUCTO'] ?>"></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
