@@ -1,4 +1,5 @@
 <?php
+session_start();
 // index.php:
 
 include_once '../Controller/index_controller.php';
@@ -13,21 +14,44 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="../Public/css/style.css" rel="stylesheet">
-    <link href="../Public/css/style_tabla.css" rel="stylesheet">
+    <title>Venive Shop</title>
+    <link rel="stylesheet" href="../Public/css/style.css?v=<?php echo (rand()); ?>" />
+    <link href="../Public/css/style_tabla.css?v=<?php echo (rand()); ?>" rel="stylesheet">
 </head>
 
 <body>
     <section class="layout">
-        <div class="header">
-            <h1>Venive</h1>
+    <div class="header">
+            <h1>
+                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario']))?'../View/blusas.php':'../View/login.php'?>">
+                    Venive
+                </a>
+            </h1>
+
             <div class="Logo-conteiner">
-                <a href="index.php">
+                <a href="../View/index.php">
                     <img src="../Public/img/Venive_logo.png" alt="Venive logo">
                 </a>
             </div>
+
+            <?php if (isset($_SESSION['Usuario'])) { ?>
+                <div class="conteiner-btn-cerrar-sesion">
+                    <?php if (isset($_SESSION['Usuario'])) { ?>
+                        <?php
+                        $UsuarioL = $_SESSION['Usuario'];
+                        ?>
+                        <p class="User-logged">
+                            Usuario en sesion: <?php echo $UsuarioL ?>
+                        </p>
+                    <?php } ?>
+
+                    <a href="../Controller/logout_controller.php">
+                        <img src="../Public/img/logout.png" alt="btn-cerrar-sesion" class="btn-cerra-sesion">
+                    </a>
+                </div>
+            <?php } ?>
         </div>
+
         <div class="aside">
             <div class="nav-conteiner">
                 <h2>Catálogo</h2>
@@ -46,6 +70,10 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
                     <li><a href="blusas.php" class="">Blusas</a></li>
                     <li><a href="chaquetas.php" class="">Chaquetas</a></li>
                     <li><a href="deportiva.php" class="">Deportiva</a></li>
+                    <?php if (isset($_SESSION['Usuario'])) { ?>
+                        <li><a href="../View/New_Product.php" class="">Nueva Prenda</a></li>
+                        <li><a href="../View/register.php" class="">Nuevo Usuario</a></li>
+                    <?php } ?>
                 </ul>
             </div>
             <div class="box-prendas">
@@ -59,6 +87,9 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
                                         <th>Prenda</th>
                                         <th>Precio</th>
                                         <th>Imagen</th>
+                                        <?php if (isset($_SESSION['Usuario'])) { ?>
+                                            <th>Accción</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +99,24 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
                                             <td><?= $productosblusa['NOMBRE_PRODUCTO'] ?></td>
                                             <td><?= $productosblusa['PRECIO_VENTA'] ?></td>
                                             <td><img src="../Public/img/<?= $productosblusa['IMAGEN'] ?>" alt="<?= $productosblusa['NOMBRE_PRODUCTO'] ?>"></td>
+                                            <?php if (isset($_SESSION['Usuario'])) { ?>
+                                                <td>
+
+                                                    <form action="../Controller/product_controller.php" method="post">
+                                                        <input type="hidden" name="id_producto_editar" value="<?php echo $producto_id ?>">
+                                                        <button class="btn-editar-prenda" type="submit">
+                                                            <b>Editar</b>
+                                                        </button>
+                                                    </form>
+
+                                                    <form action="../Controller/product_controller.php" method="post">
+                                                        <input type="hidden" name="id_producto_eliminar" value="<?php echo $producto_id ?>">
+                                                        <button class="btn-eliminar-prenda" type="submit">
+                                                            <b>Eliminar</b>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            <?php } ?>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

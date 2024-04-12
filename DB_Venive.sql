@@ -555,29 +555,6 @@ BEGIN
 END;
 /
 
--- Autenticacion de usuario --
-CREATE OR REPLACE PROCEDURE Authenticate_User (
-    p_username IN VARCHAR2,
-    p_password IN VARCHAR2,
-    p_auth_status OUT NUMBER
-)
-AS
-    v_count NUMBER;
-BEGIN
-    -- Verificar si las credenciales son v?lidas
-    SELECT COUNT(*) INTO v_count
-    FROM Usuarios
-    WHERE nombre_usuario = p_username AND contrasena = p_password;
-    
-    -- Asignar 1 si las credenciales son v?lidas, 0 en caso contrario
-    IF v_count > 0 THEN
-        p_auth_status := 1; -- Autenticaci?n exitosa
-    ELSE
-        p_auth_status := 0; -- Autenticaci?n fallida
-    END IF;
-END;
-/
-
 -- Crear nueva prenda
 CREATE OR REPLACE PROCEDURE InsertarPrenda (
     p_nombre_producto IN VARCHAR2,
