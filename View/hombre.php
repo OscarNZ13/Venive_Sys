@@ -5,7 +5,7 @@ session_start();
 include_once '../Controller/index_controller.php';
 
 $indexController = new IndexController();
-$productos = $indexController->obtenerProductos();
+$productoshombre = $indexController->obtenerProductosHombre();
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +21,9 @@ $productos = $indexController->obtenerProductos();
 
 <body>
     <section class="layout">
-        <div class="header">
+    <div class="header">
             <h1>
-                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario'])) ? '../View/index.php' : '../View/login.php' ?>">
+                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario']))?'../View/pantalones.php':'../View/login.php'?>">
                     Venive
                 </a>
             </h1>
@@ -66,10 +66,10 @@ $productos = $indexController->obtenerProductos();
         <div class="main">
             <div class="filtro-ropa">
                 <ul>
-                    <li><a href="../View/pantalones.php" class="">Pantalones</a></li>
-                    <li><a href="../View/blusas.php" class="">Blusas</a></li>
-                    <li><a href="../View/chaquetas.php" class="">Chaquetas</a></li>
-                    <li><a href="../View/deportiva.php" class="">Deportiva</a></li>
+                    <li><a href="pantalones.php" class="">Pantalones</a></li>
+                    <li><a href="blusas.php" class="">Blusas</a></li>
+                    <li><a href="chaquetas.php" class="">Chaquetas</a></li>
+                    <li><a href="deportiva.php" class="">Deportiva</a></li>
                     <?php if (isset($_SESSION['Usuario'])) { ?>
                         <li><a href="../View/New_Product.php" class="">Nueva Prenda</a></li>
                         <li><a href="../View/register.php" class="">Nuevo Usuario</a></li>
@@ -78,7 +78,7 @@ $productos = $indexController->obtenerProductos();
             </div>
             <div class="box-prendas">
                 <div class="header-table">
-                    <?php if ($productos && count($productos) > 0) : ?>
+                    <?php if ($productoshombre && count($productoshombre) > 0) : ?>
                         <div class="tabla-container"> <!-- Aquí agregamos el contenedor -->
                             <table class="mi-tabla">
                                 <thead>
@@ -90,27 +90,26 @@ $productos = $indexController->obtenerProductos();
                                         <?php if (isset($_SESSION['Usuario'])) { ?>
                                             <th>Accción</th>
                                         <?php } ?>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($productos as $producto) : ?>
-                                        <?php $producto_id = $producto['ID_PRODUCTO'] ?>
+                                    <?php foreach ($productoshombre as $productoshombre) : ?>
                                         <tr>
-                                            <td><?= $producto['ID_PRODUCTO'] ?></td>
-                                            <td><?= $producto['NOMBRE_PRODUCTO'] ?></td>
-                                            <td><?= $producto['PRECIO_VENTA'] ?></td>
-                                            <td><img src="../Public/img/<? echo $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
+                                            <td><?= $productoshombre['ID_PRODUCTO'] ?></td>
+                                            <td><?= $productoshombre['NOMBRE_PRODUCTO'] ?></td>
+                                            <td><?= $productoshombre['PRECIO_VENTA'] ?></td>
+                                            <td><img src="../Public/img/<?= $productoshombre['IMAGEN'] ?>" alt="<?= $productoshombre['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
-                                                    <form action="../View/New_Product.php" method="POST"> <!-- Cambia la ruta según la ubicación de tu archivo modificar_prenda.php -->
-                                                        <input type="hidden" name="id_producto" value="<?php echo $producto_id ?>">
+
+                                                    <form action="../Controller/product_controller.php" method="post">
+                                                        <input type="hidden" name="id_producto_editar" value="<?php echo $producto_id ?>">
                                                         <button class="btn-editar-prenda" type="submit">
                                                             <b>Editar</b>
                                                         </button>
                                                     </form>
 
-                                                    <form action="../Controller/product_controller.php" method="POST">
+                                                    <form action="../Controller/product_controller.php" method="post">
                                                         <input type="hidden" name="id_producto_eliminar" value="<?php echo $producto_id ?>">
                                                         <button class="btn-eliminar-prenda" type="submit">
                                                             <b>Eliminar</b>

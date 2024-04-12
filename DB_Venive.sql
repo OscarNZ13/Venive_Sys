@@ -841,7 +841,7 @@ END;
 /
 
 --Procedimiento almacenado que solo muestre productos de mujer
-CREATE OR REPLACE PROCEDURE ObtenerProductosHombre (
+CREATE OR REPLACE PROCEDURE ObtenerProductosMujer (
     productos_cursor OUT SYS_REFCURSOR
 ) AS
 BEGIN
@@ -861,7 +861,7 @@ DECLARE
     imagen VARCHAR2(100);
     precio_venta NUMBER;
 BEGIN
-    ObtenerProductosHombre(productos_cursor);
+    ObtenerProductosMujer(productos_cursor);
     LOOP
         FETCH productos_cursor INTO id_producto, nombre_producto, imagen, precio_venta;
         EXIT WHEN productos_cursor%NOTFOUND;
