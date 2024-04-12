@@ -26,13 +26,33 @@ html {
     border-radius: 10px;
     text-align: center;
     border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos uniformemente */
+    align-items: center; /* Centra verticalmente los elementos */
+    position: relative;
+}
+
+.header a {
+    width: 100%;
+    /* Establece el ancho del enlace al 100% para ocupar todo el espacio disponible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
 }
 
 .header h1 {
     font-size: 45px;
     padding: 5px;
     color: white;
+    text-align: center;
+    /* Centra horizontalmente el texto */
+    margin: 0; /* Agrega esto para eliminar el margen */
+    flex-grow: 1; /* Agrega esto para que el h1 ocupe el espacio restante */
 }
+
 
 .Logo-conteiner {
     position: absolute;
@@ -50,6 +70,35 @@ html {
     border-radius: 40px;
     margin: 10px;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+.conteiner-btn-cerrar-sesion {
+    margin-top: 17px;
+    /* Ajusta el margen derecho según sea necesario */
+    background: rgba(242, 242, 242, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+
+    /* Quita el margen derecho y otros estilos que no son necesarios */
+    position: absolute;
+    /* Agrega esta línea */
+    top: 0;
+    /* Agrega esta línea */
+    right: 0;
+    /* Agrega esta línea */
+    margin-right: 20px;
+    /* Si deseas un margen desde el borde derecho */
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+
+}
+
+.btn-cerra-sesion {
+    height: 50px;
+    width: 50px;
 }
 
 .aside {
@@ -227,4 +276,18 @@ html {
 .contactos-conteiner a {
     margin: 0 15px;
     /* Espacio entre los enlaces */
+}
+
+.btn-editar-prenda {
+    background: rgba(255, 237, 0, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn-eliminar-prenda {
+    background: rgba(255, 0, 0, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
