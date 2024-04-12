@@ -25,6 +25,33 @@ class ProductosModel {
         }
     } 
 
+    function modificarPrenda($id_producto, $nombre_producto = null, $precio_compra = null, $precio_venta = null, $porcentaje_ganancia = null, $imagen = null, $conn) {
+        // Preparar la sentencia SQL para llamar al procedimiento almacenado
+        $sql = "BEGIN ModificarPrenda(:p_id_producto, :p_nombre_producto, :p_precio_compra, :p_precio_venta, :p_porcentaje_ganancia, :p_imagen); END;";
+        
+        // Preparar la sentencia para su ejecución
+        $stmt = oci_parse($conn, $sql);
+        
+        // Bind de parámetros
+        oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
+        oci_bind_by_name($stmt, ':p_nombre_producto', $nombre_producto);
+        oci_bind_by_name($stmt, ':p_precio_compra', $precio_compra);
+        oci_bind_by_name($stmt, ':p_precio_venta', $precio_venta);
+        oci_bind_by_name($stmt, ':p_porcentaje_ganancia', $porcentaje_ganancia);
+        oci_bind_by_name($stmt, ':p_imagen', $imagen);
+        
+        // Ejecutar la sentencia
+        if (oci_execute($stmt)) {
+            echo "Prenda modificada correctamente.";
+        } else {
+            $e = oci_error($stmt);  // Obtiene el error de oci_execute
+            echo "Error al modificar prenda: " . htmlentities($e['message']);
+        }
+        
+        // Cerrar el statement
+        oci_free_statement($stmt);
+    }
+
     public function obtenerProductos($conn)
     {
         $productos = array();
@@ -120,10 +147,10 @@ class ProductosModel {
 
     public function obtenerProductosChaquetas($conn)
     {
-        $productosblusa = array();
+        $productoschaquetas = array();
         $productos_cursor = oci_new_cursor($conn);
 
-        // Llama al procedimiento almacenado para obtener los productos que son blusas
+        // Llama al procedimiento almacenado para obtener los productos que son chaquetas
         $sql = "BEGIN ObtenerProductosChaquetas(:productos_cursor); END;";
         $stmt = oci_parse($conn, $sql);
 
@@ -151,10 +178,10 @@ class ProductosModel {
 
     public function obtenerProductosRopaDeportiva($conn)
     {
-        $productosblusa = array();
+        $productosdeportiva = array();
         $productos_cursor = oci_new_cursor($conn);
 
-        // Llama al procedimiento almacenado para obtener los productos que son blusas
+        // Llama al procedimiento almacenado para obtener los productos que ropa deportiva
         $sql = "BEGIN ObtenerProductosRopaDeportiva(:productos_cursor); END;";
         $stmt = oci_parse($conn, $sql);
 
@@ -178,6 +205,68 @@ class ProductosModel {
         oci_free_statement($productos_cursor);
 
         return $productosdeportiva;
+    }
+
+    public function obtenerProductosHombre($conn)
+    {
+        $productoshombre = array();
+        $productos_cursor = oci_new_cursor($conn);
+
+        // Llama al procedimiento almacenado para obtener los productos que son para hombres
+        $sql = "BEGIN ObtenerProductosHombre(:productos_cursor); END;";
+        $stmt = oci_parse($conn, $sql);
+
+        // Bind de parámetros
+        oci_bind_by_name($stmt, ':productos_cursor', $productos_cursor, -1, OCI_B_CURSOR);
+
+        // Ejecutar el procedimiento almacenado
+        if (!oci_execute($stmt)) {
+            $e = oci_error($stmt);  // Obtiene el error de oci_execute
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+
+        // Recuperar los datos del cursor
+        oci_execute($productos_cursor);
+        while ($row = oci_fetch_assoc($productos_cursor)) {
+            $productoshombre[] = $row;
+        }
+
+        // Cerrar el cursor y liberar recursos
+        oci_free_statement($stmt);
+        oci_free_statement($productos_cursor);
+
+        return $productoshombre;
+    }
+
+    public function obtenerProductosMujer($conn)
+    {
+        $productosmujer = array();
+        $productos_cursor = oci_new_cursor($conn);
+
+        // Llama al procedimiento almacenado para obtener los productos que son para hombres
+        $sql = "BEGIN ObtenerProductosMujer(:productos_cursor); END;";
+        $stmt = oci_parse($conn, $sql);
+
+        // Bind de parámetros
+        oci_bind_by_name($stmt, ':productos_cursor', $productos_cursor, -1, OCI_B_CURSOR);
+
+        // Ejecutar el procedimiento almacenado
+        if (!oci_execute($stmt)) {
+            $e = oci_error($stmt);  // Obtiene el error de oci_execute
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+
+        // Recuperar los datos del cursor
+        oci_execute($productos_cursor);
+        while ($row = oci_fetch_assoc($productos_cursor)) {
+            $productosmujer[] = $row;
+        }
+
+        // Cerrar el cursor y liberar recursos
+        oci_free_statement($stmt);
+        oci_free_statement($productos_cursor);
+
+        return $productosmujer;
     }
 }
 $conn = $GLOBALS['dbconn'];
