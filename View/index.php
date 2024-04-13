@@ -57,8 +57,8 @@ $productos = $indexController->obtenerProductos();
                 <h2>Catálogo</h2>
                 <nav>
                     <ul>
-                        <li><a href="hombre.php" class="C-HM">Hombre</a></li>
-                        <li><a href="mujer.php" class="C-HM">Mujer</a></li>
+                        <li><a href="../View/hombre.php" class="C-HM">Hombre</a></li>
+                        <li><a href="../View/mujer.php" class="C-HM">Mujer</a></li>
                     </ul>
                 </nav>
             </div>
@@ -103,7 +103,7 @@ $productos = $indexController->obtenerProductos();
                                             <td><img src="../Public/img/<? echo $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
-                                                    <form action="../View/New_Product.php" method="POST"> <!-- Cambia la ruta según la ubicación de tu archivo modificar_prenda.php -->
+                                                    <form action="../View/edit_product.php" method="POST"> <!-- Cambia la ruta según la ubicación de tu archivo modificar_prenda.php -->
                                                         <input type="hidden" name="id_producto" value="<?php echo $producto_id ?>">
                                                         <button class="btn-editar-prenda" type="submit">
                                                             <b>Editar</b>

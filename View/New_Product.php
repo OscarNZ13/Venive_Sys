@@ -1,67 +1,36 @@
-<?php
-session_start();
-
-// Verificar si se recibieron los datos del formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_producto'], $_POST['nombre_producto'], $_POST['precio_venta'])) {
-    // Obtener los datos del formulario
-    $id_producto = $_POST['id_producto'];
-    $nombre_producto = $_POST['nombre_producto'];
-    $precio_venta = $_POST['precio_venta'];
-
-    // Incluir el controlador para modificar la prenda
-    include_once '../Controller/index_controller.php';
-
-    // Crear una instancia del controlador
-    $indexController = new IndexController();
-
-    // Llamar a la función para modificar la prenda
-    $indexController->modificarPrenda($id_producto, $nombre_producto, null, $precio_venta, null, null);
-
-    // Redireccionar a la página principal después de modificar la prenda
-    header("Location: index.php");
-    exit;
-}
-?>
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar Prenda</title>
-    <link href="../Public/css/style.css" rel="stylesheet">
-    <!-- Agrega cualquier otra hoja de estilos que necesites -->
+    <title>Venive Shop</title>
+    <link rel="stylesheet" href="../Public/css/new_product_style.css?php echo (rand()); ?>"">
 </head>
+
 <body>
-    <section class="layout">
-        <!-- Encabezado -->
-        <div class="header">
-            <h1>Modificar Prenda</h1>
-            <!-- Agrega cualquier elemento de navegación o branding aquí -->
-        </div>
 
-        <!-- Contenido principal -->
-        <div class="main">
-            <!-- Formulario para modificar la prenda -->
-            <form action="../Controller/modificar_prenda_controller.php" method="POST">
-                <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
-                <label for="nombre">Nombre de la Prenda:</label><br>
-                <input type="text" id="nombre" name="nombre_producto" value="<?php echo $nombre_producto; ?>"><br>
-                <label for="precio_compra">Precio de Compra:</label><br>
-                <input type="text" id="precio_compra" name="precio_compra" value="<?php echo $precio_compra; ?>"><br>
-                <label for="precio_venta">Precio de Venta:</label><br>
-                <input type="text" id="precio_venta" name="precio_venta" value="<?php echo $precio_venta; ?>"><br>
-                <!-- Agrega más campos según sea necesario para los atributos que deseas modificar -->
+    <div class="Login-Box">
+        <form action="../Controller/product_controller.php" method="post">
+            <h1 class="h1-2">Nuevo Producto</h1>
 
-                <input type="submit" value="Modificar">
-            </form>
-        </div>
+            <p>Nombre del Producto
+                <input type="text" placeholder="Nombre del producto" name="nombre_producto" class="input-nombre-prenda" required>
+            </p>
 
-        <!-- Pie de página -->
-        <div class="footer">
-            <!-- Agrega cualquier información de contacto o enlaces de redes sociales aquí -->
-        </div>
-    </section>
+            <p>Precio de Compra
+                <input type="number" placeholder="Precio de compra" name="precio_compra" class="input-Precio-Compra" required>
+            </p>
+
+            <p>Imagen
+                <input type="text" placeholder="URL de la imagen" name="imagen" class="input-imagen" required>
+            </p>
+
+            <button class="Btn-Register-2" type="submit" value="register" name="btn_crear">Crear</button>
+
+        </form>
+    </div>
+
 </body>
+
 </html>
