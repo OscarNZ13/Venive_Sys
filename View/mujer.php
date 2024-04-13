@@ -21,9 +21,9 @@ $productosmujer = $indexController->obtenerProductosMujer();
 
 <body>
     <section class="layout">
-    <div class="header">
+        <div class="header">
             <h1>
-                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario']))?'../View/pantalones.php':'../View/login.php'?>">
+                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario'])) ? '../View/mujer.php' : '../View/login.php' ?>">
                     Venive
                 </a>
             </h1>
@@ -57,8 +57,8 @@ $productosmujer = $indexController->obtenerProductosMujer();
                 <h2>Catálogo</h2>
                 <nav>
                     <ul>
-                        <li><a href="hombre.php" class="C-HM">Hombre</a></li>
-                        <li><a href="mujer.php" class="C-HM">Mujer</a></li>
+                        <li><a href="../View/hombre.php" class="C-HM">Hombre</a></li>
+                        <li><a href="../View/mujer.php" class="C-HM">Mujer</a></li>
                     </ul>
                 </nav>
             </div>
@@ -66,10 +66,10 @@ $productosmujer = $indexController->obtenerProductosMujer();
         <div class="main">
             <div class="filtro-ropa">
                 <ul>
-                    <li><a href="pantalones.php" class="">Pantalones</a></li>
-                    <li><a href="blusas.php" class="">Blusas</a></li>
-                    <li><a href="chaquetas.php" class="">Chaquetas</a></li>
-                    <li><a href="deportiva.php" class="">Deportiva</a></li>
+                    <li><a href="../View/pantalones.php" class="">Pantalones</a></li>
+                    <li><a href="../View/blusas.php" class="">Blusas</a></li>
+                    <li><a href="../View/chaquetas.php" class="">Chaquetas</a></li>
+                    <li><a href="../View/deportiva.php" class="">Deportiva</a></li>
                     <?php if (isset($_SESSION['Usuario'])) { ?>
                         <li><a href="../View/New_Product.php" class="">Nueva Prenda</a></li>
                         <li><a href="../View/register.php" class="">Nuevo Usuario</a></li>

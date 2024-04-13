@@ -1,0 +1,194 @@
+body,
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Times New Roman', Times, serif, Geneva, Tahoma, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 3px;
+    padding: 0;
+    height: 100%;
+    background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #b0b0b0 100px), repeating-linear-gradient(#000000, #3900ff);
+    background-color: #b0b0b0;
+}
+
+body {
+    display: flex;
+    /* Usar flexbox para centrar verticalmente el contenido */
+    justify-content: center;
+    /* Centrar horizontalmente el contenido */
+    align-items: center;
+    /* Centrar verticalmente el contenido */
+}
+
+.Login-Box {
+    color: white;
+    width: 450px;
+    background: rgba(0, 0, 0, 0.425);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    /* Utilizar flexbox */
+    flex-direction: column;
+    /* Organizar los elementos verticalmente */
+    justify-content: center;
+    /* Centrar verticalmente los elementos */
+    align-items: center;
+    /* Centrar horizontalmente los elementos */
+    padding: 20px;
+    /* Añade un poco de espacio dentro del box */
+    padding-bottom: 50px;
+}
+
+.h1-1 {
+    margin-left: 20px;
+}
+
+.h1-2 {
+    margin-left: 54px;
+}
+
+.input-nombre-prenda {
+    width: 164px;
+    padding-right: 13px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.input-Precio-Compra {
+    width: 164px;
+    margin-left: 28px;
+    padding-right: 13px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.input-imagen {
+    width: 164px;
+    margin-left: 102px;
+    padding-right: 13px;
+    border-radius: 5px;
+    border-style: none;
+    margin-bottom: 10px;
+}
+
+.input-Email {
+    width: 180px;
+    padding-right: 13px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.input-Location {
+    width: 148px;
+    padding-right: 13px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.Btn-Summit {
+    margin-left: 65px;
+    height: 20px;
+    width: 70px;
+    border-radius: 7px;
+
+    height: 20px;
+    width: 100px;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.Btn-Register-1 {
+    margin-left: 13px;
+    margin-bottom: 5px;
+    border-radius: 7px;
+
+    height: 20px;
+    width: 100px;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.Btn-Register-2 {
+    height: 20px;
+    width: 100px;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+    margin-left: 100px;
+}
+
+.Btn-Register-2:hover,
+:focus {
+    color: #ffffff;
+    background: #008cff;
+    border: 1px solid #008cff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+        0 0 100px #008cff;
+}
+
+.Btn-Register-1:hover,
+:focus {
+    color: #ffffff;
+    background: #008cff;
+    border: 1px solid #008cff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+        0 0 100px #008cff;
+}
+
+.Btn-Summit:hover,
+:focus {
+    color: #ffffff;
+    background: #008cff;
+    border: 1px solid #008cff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+        0 0 100px #008cff;
+}
+
+.Texto-Registro {
+    font-size: small;
+}
+
+.link-FRegistro {
+    color: #ffffff;
+}
+
+.link-FRegistro:hover {
+    color: #1aff00;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    /* Ajusta el tamaño de fuente según sea necesario */
+    margin-top: 5px;
+    /* Espacio entre el mensaje de error y los campos de entrada */
+}
