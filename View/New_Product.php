@@ -1,3 +1,8 @@
+<?php
+session_start();
+// New_Product.php:
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venive Shop</title>
-    <link rel="stylesheet" href="../Public/css/new_product_style.css?php echo (rand()); ?>"">
+    <link rel="stylesheet" href="../Public/css/new_product_style.css?v=<?php echo (rand()); ?>" />
 </head>
 
 <body>

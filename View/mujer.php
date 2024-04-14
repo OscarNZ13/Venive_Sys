@@ -94,6 +94,7 @@ $productosmujer = $indexController->obtenerProductosMujer();
                                 </thead>
                                 <tbody>
                                     <?php foreach ($productosmujer as $productosmujer) : ?>
+                                        <?php $producto_id = $productosmujer['ID_PRODUCTO'] ?>
                                         <tr>
                                             <td><?= $productosmujer['ID_PRODUCTO'] ?></td>
                                             <td><?= $productosmujer['NOMBRE_PRODUCTO'] ?></td>
@@ -101,16 +102,17 @@ $productosmujer = $indexController->obtenerProductosMujer();
                                             <td><img src="../Public/img/<?= $productosmujer['IMAGEN'] ?>" alt="<?= $productosmujer['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
-
-                                                    <form action="../Controller/product_controller.php" method="post">
-                                                        <input type="hidden" name="id_producto_editar" value="<?php echo $producto_id ?>">
+                                                    <form action="../Controller/product_controller.php" method="POST">
+                                                        <input type="hidden" name="id_producto" value="<?php echo $producto_id ?>">
+                                                        <input type="hidden" name="accion" value="editar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-editar-prenda" type="submit">
                                                             <b>Editar</b>
                                                         </button>
                                                     </form>
 
-                                                    <form action="../Controller/product_controller.php" method="post">
+                                                    <form action="../Controller/product_controller.php" method="POST">
                                                         <input type="hidden" name="id_producto_eliminar" value="<?php echo $producto_id ?>">
+                                                        <input type="hidden" name="accion" value="eliminar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-eliminar-prenda" type="submit">
                                                             <b>Eliminar</b>
                                                         </button>
