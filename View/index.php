@@ -103,8 +103,9 @@ $productos = $indexController->obtenerProductos();
                                             <td><img src="../Public/img/<? echo $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
-                                                    <form action="../View/edit_product.php" method="POST"> <!-- Cambia la ruta según la ubicación de tu archivo modificar_prenda.php -->
+                                                    <form action="../Controller/product_controller.php" method="POST">
                                                         <input type="hidden" name="id_producto" value="<?php echo $producto_id ?>">
+                                                        <input type="hidden" name="accion" value="editar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-editar-prenda" type="submit">
                                                             <b>Editar</b>
                                                         </button>
@@ -112,6 +113,7 @@ $productos = $indexController->obtenerProductos();
 
                                                     <form action="../Controller/product_controller.php" method="POST">
                                                         <input type="hidden" name="id_producto_eliminar" value="<?php echo $producto_id ?>">
+                                                        <input type="hidden" name="accion" value="eliminar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-eliminar-prenda" type="submit">
                                                             <b>Eliminar</b>
                                                         </button>

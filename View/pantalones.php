@@ -21,9 +21,9 @@ $productospant = $indexController->obtenerProductosPantalones();
 
 <body>
     <section class="layout">
-    <div class="header">
+        <div class="header">
             <h1>
-                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario']))?'../View/pantalones.php':'../View/login.php'?>">
+                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario'])) ? '../View/pantalones.php' : '../View/login.php' ?>">
                     Venive
                 </a>
             </h1>
@@ -94,6 +94,7 @@ $productospant = $indexController->obtenerProductosPantalones();
                                 </thead>
                                 <tbody>
                                     <?php foreach ($productospant as $productospant) : ?>
+                                        <?php $producto_id = $productospant['ID_PRODUCTO'] ?>
                                         <tr>
                                             <td><?= $productospant['ID_PRODUCTO'] ?></td>
                                             <td><?= $productospant['NOMBRE_PRODUCTO'] ?></td>
@@ -101,16 +102,17 @@ $productospant = $indexController->obtenerProductosPantalones();
                                             <td><img src="../Public/img/<?= $productospant['IMAGEN'] ?>" alt="<?= $productospant['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
-
-                                                    <form action="../Controller/product_controller.php" method="post">
-                                                        <input type="hidden" name="id_producto_editar" value="<?php echo $producto_id ?>">
+                                                    <form action="../Controller/product_controller.php" method="POST">
+                                                        <input type="hidden" name="id_producto" value="<?php echo $producto_id ?>">
+                                                        <input type="hidden" name="accion" value="editar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-editar-prenda" type="submit">
                                                             <b>Editar</b>
                                                         </button>
                                                     </form>
 
-                                                    <form action="../Controller/product_controller.php" method="post">
+                                                    <form action="../Controller/product_controller.php" method="POST">
                                                         <input type="hidden" name="id_producto_eliminar" value="<?php echo $producto_id ?>">
+                                                        <input type="hidden" name="accion" value="eliminar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-eliminar-prenda" type="submit">
                                                             <b>Eliminar</b>
                                                         </button>

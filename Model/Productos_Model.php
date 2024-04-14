@@ -3,28 +3,59 @@
 
 include ('../Db/Connection_db.php');
 
-
-
 class ProductosModel {
+
+    public function NuevoProducto($nombreP, $PrecioCompraP, $Imagen, $conn) {
+        // Declarar la sentencia SQL para llamar al procedimiento almacenado
+        $sql = "BEGIN InsertarNuevoProducto(:nombre_producto, :precio_compra, :imagen); END;";
+    
+        // Preparar la sentencia
+        $stmt = oci_parse($conn, $sql);
+    
+        // Vincular los parámetros
+        oci_bind_by_name($stmt, ':nombre_producto', $nombreP);
+        oci_bind_by_name($stmt, ':precio_compra', $PrecioCompraP);
+        oci_bind_by_name($stmt, ':imagen', $Imagen);
+    
+        // Ejecutar la sentencia
+        if (oci_execute($stmt)) {
+            // Liberar recursos
+            oci_free_statement($stmt);
+            // Devolver true si se insertó correctamente
+            return true;
+        } else {
+            // Obtener el error
+            $e = oci_error($stmt);
+            // Liberar recursos
+            oci_free_statement($stmt);
+            // Imprimir el error (puedes manejarlo de otra forma si lo prefieres)
+            echo "Error al insertar el producto: " . htmlentities($e['message']);
+            // Devolver false si hubo un error
+            return false;
+        }
+    }
 
     public function ElminarPrductos($conn, $id_producto) {
         //Creacion de sentencia:
         $sql = "BEGIN EliminarPrenda(:p_id_producto); END;";
-
+    
         //Preparacion de sentencia:
         $stmt = oci_parse($conn, $sql);
-
+    
         //Asignacion de bins para prevenir inyecciones SQL:
         oci_bind_by_name($stmt, ':p_id_producto', $id_producto, -1, SQLT_CHR);
-
+    
         //Ejecucion de la sentencia:
-        oci_execute($stmt);
-
-        if($stmt!=true){
-            echo "No se pudo eliminar el producto correctamente";
+        $result = oci_execute($stmt);
+    
+        // Verificar el resultado y devolver un booleano
+        if($result) {
+            return true; // Éxito al eliminar el producto
+        } else {
+            return false; // Error al eliminar el producto
         }
-    } 
-
+    }
+    
     function modificarPrenda($id_producto, $nombre_producto = null, $precio_compra = null, $precio_venta = null, $porcentaje_ganancia = null, $imagen = null, $conn) {
         // Preparar la sentencia SQL para llamar al procedimiento almacenado
         $sql = "BEGIN ModificarPrenda(:p_id_producto, :p_nombre_producto, :p_precio_compra, :p_precio_venta, :p_porcentaje_ganancia, :p_imagen); END;";
@@ -269,8 +300,3 @@ class ProductosModel {
         return $productosmujer;
     }
 }
-$conn = $GLOBALS['dbconn'];
-
-$P1 = new ProductosModel();
-
-$P1->ElminarPrductos($conn, 146);
