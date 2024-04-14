@@ -1,3 +1,5 @@
+/*++++++++++++++++++| TABLES |++++++++++++++++++*/
+
 -- Crear tabla "Usuarios"
 CREATE TABLE Usuarios (
     id_usuario NUMBER PRIMARY KEY,
@@ -43,6 +45,7 @@ CREATE TABLE Inventario (
     FOREIGN KEY (id_talla) REFERENCES Tallas(id_talla) -- Clave for?nea para la tabla Tallas
 );
 
+
 -- Crear tabla "Productos_Categorias"
 CREATE TABLE Productos_Categorias (
     id_categoria NUMBER,
@@ -51,6 +54,7 @@ CREATE TABLE Productos_Categorias (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) ON DELETE CASCADE, -- Restricci?n ON DELETE CASCADE
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
+
 
 -- Crear tabla "Productos_Sexo"
 CREATE TABLE Productos_Sexo (
@@ -61,125 +65,19 @@ CREATE TABLE Productos_Sexo (
     FOREIGN KEY (id_sexo) REFERENCES Sexo(id_sexo)
 );
 
--- Drop de todas las tablas:
+DROP TABLE Usuarios;
 DROP TABLE Sexo;
 DROP TABLE Categorias;
 DROP TABLE Tallas;
 DROP TABLE Productos;
 DROP TABLE Inventario;
-DROP TABLE Productos_Categorias;
 DROP TABLE Productos_Sexo;
+DROP TABLE Productos_Categorias;
 
--- Creaci?n de secuencia para el id_usuario en la tabla Usuarios
-CREATE SEQUENCE seq_id_usuario
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOMAXVALUE;
+DELETE FROM productos;
+DELETE FROM Categorias;
 
--- Creaci?n del trigger para asignar el id_usuario autom?ticamente en la tabla Usuarios
-CREATE OR REPLACE TRIGGER tr_id_usuario
-BEFORE INSERT ON Usuarios
-FOR EACH ROW
-BEGIN
-    :NEW.id_usuario := seq_id_usuario.NEXTVAL;
-END;
-/
-
--- Creaci?n de secuencia para el id_sexo en la tabla Sexo
-CREATE SEQUENCE seq_id_sexo
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOMAXVALUE;
-
--- Creaci?n del trigger para asignar el id_sexo autom?ticamente en la tabla Sexo
-CREATE OR REPLACE TRIGGER tr_id_sexo
-BEFORE INSERT ON Sexo
-FOR EACH ROW
-BEGIN
-    :NEW.id_sexo := seq_id_sexo.NEXTVAL;
-END;
-/
-
--- Creaci?n de secuencia para el id_categoria en la tabla Categorias
-CREATE SEQUENCE seq_id_categoria
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOMAXVALUE;
-
--- Creaci?n del trigger para asignar el id_categoria autom?ticamente en la tabla Categorias
-CREATE OR REPLACE TRIGGER tr_id_categoria
-BEFORE INSERT ON Categorias
-FOR EACH ROW
-BEGIN
-    :NEW.id_categoria := seq_id_categoria.NEXTVAL;
-END;
-/
-
--- Creaci?n de secuencia para el id_talla en la tabla Tallas
-CREATE SEQUENCE seq_id_talla
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOMAXVALUE;
-
--- Creaci?n del trigger para asignar el id_talla autom?ticamente en la tabla Tallas
-CREATE OR REPLACE TRIGGER tr_id_talla
-BEFORE INSERT ON Tallas
-FOR EACH ROW
-BEGIN
-    :NEW.id_talla := seq_id_talla.NEXTVAL;
-END;
-/
-
--- Creaci?n de secuencia para el id_producto en la tabla Productos
-CREATE SEQUENCE seq_id_producto
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOMAXVALUE;
-
--- Creaci?n del trigger para asignar el id_producto autom?ticamente en la tabla Productos
-CREATE OR REPLACE TRIGGER tr_id_producto
-BEFORE INSERT ON Productos
-FOR EACH ROW
-BEGIN
-    :NEW.id_producto := seq_id_producto.NEXTVAL;
-END;
-/
-
---Creacion de trigger que asigna automáticamente un producto a su categoría y sexo correspondientes
-CREATE OR REPLACE TRIGGER AsignarCategoriaYSexo
-AFTER INSERT ON Productos
-FOR EACH ROW
-BEGIN
-    -- Verificar el nombre del producto y asignar la categoría correspondiente
-    IF UPPER(:NEW.nombre_producto) LIKE '%PANTALON%' THEN
-        INSERT INTO Productos_Categorias (id_categoria, id_producto)
-        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Pantalones'), :NEW.id_producto);
-    ELSIF UPPER(:NEW.nombre_producto) LIKE '%BLUSA%' THEN
-        INSERT INTO Productos_Categorias (id_categoria, id_producto)
-        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Blusas'), :NEW.id_producto);
-    ELSIF UPPER(:NEW.nombre_producto) LIKE '%CHAQUETA%' OR UPPER(:NEW.nombre_producto) LIKE '%CARDIGAN%' OR UPPER(:NEW.nombre_producto) LIKE '%GABARDINA%' OR UPPER(:NEW.nombre_producto) LIKE '%PARKA%' THEN
-        INSERT INTO Productos_Categorias (id_categoria, id_producto)
-        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Chaquetas'), :NEW.id_producto);
-    ELSIF UPPER(:NEW.nombre_producto) LIKE '%DEPORTIVO%' OR UPPER(:NEW.nombre_producto) LIKE '%SPORT%' THEN
-        INSERT INTO Productos_Categorias (id_categoria, id_producto)
-        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Ropa deportiva'), :NEW.id_producto);
-    END IF;
-    
-    -- Asignar el sexo correspondiente al producto
-    IF UPPER(:NEW.nombre_producto) LIKE '%MUJER%' OR UPPER(:NEW.nombre_producto) LIKE '%FEMENINO%' THEN
-        INSERT INTO Productos_Sexo (id_sexo, id_producto)
-        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), :NEW.id_producto);
-    ELSIF UPPER(:NEW.nombre_producto) LIKE '%HOMBRE%' OR UPPER(:NEW.nombre_producto) LIKE '%MASCULINO%' THEN
-        INSERT INTO Productos_Sexo (id_sexo, id_producto)
-        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), :NEW.id_producto);
-    END IF;
-END;
-/
+/*++++++++++++++++++| INSERTS |++++++++++++++++++*/
 
 -- Inserts para la tabla Usuarios:
 INSERT INTO Usuarios (nombre_usuario, contrasena) VALUES ('Oscar', 123);
@@ -195,8 +93,6 @@ INSERT INTO Categorias (nombre_categoria) VALUES ('Blusas');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Chaquetas');
 INSERT INTO Categorias (nombre_categoria) VALUES ('Ropa deportiva');
 
-DELETE FROM Productos_Sexo;
-
 -- Inserts para la tabla Tallas
 INSERT INTO Tallas (talla_abreviada) VALUES ('XS');
 INSERT INTO Tallas (talla_abreviada) VALUES ('S');
@@ -205,12 +101,9 @@ INSERT INTO Tallas (talla_abreviada) VALUES ('L');
 INSERT INTO Tallas (talla_abreviada) VALUES ('XL');
 INSERT INTO Tallas (talla_abreviada) VALUES ('XXL');
 
-SET SERVEROUTPUT ON;
-
--- Stored Procedure para la tabla "Usuarios"
 -- Inserts para tabla Productos
-
 --Blusas
+
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Blusa de Algodon', 15, 30, 100, 'https://bit.ly/3TKySai');
 
@@ -270,6 +163,15 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Pantalon Colombiano Cargo', 38, 76, 100, 'pantalon_cargo.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalon Chata', 56, 76, 100, 'pantalon_cargo.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalon Levis 506', 24, 48, 100, 'pantalon_comfy.jpg');
+
+INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
+('Pantalon DC Masculino', 24, 48, 100, 'pantalon_comfy.jpg');
 
 --Ropa deportiva
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
@@ -334,7 +236,6 @@ INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_
 
 INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen) VALUES
 ('Cardigan Largo Cozy Evenings', 35, 70, 100, 'cardigan_cozy.jpg');
-
 
 --Agregar inserts a tablas miselaneas
 
@@ -439,6 +340,7 @@ FROM Productos WHERE nombre_producto IN (
 );
 
 --Productos por su categoria
+--Blusas
 INSERT INTO Productos_Categorias (id_categoria, id_producto)
 SELECT id_categoria, id_producto
 FROM Productos, Categorias
@@ -475,192 +377,333 @@ WHERE (Productos.nombre_producto LIKE '%Cardigan%'
     OR Productos.nombre_producto LIKE '%Blazer%')
 AND Categorias.nombre_categoria = 'Chaquetas';
 
-DELETE FROM Productos_Sexo;
 DELETE FROM Productos_Categorias;
 
 
--- Insertar --
-CREATE OR REPLACE PROCEDURE InsertarUsuario (
-    p_nombre_usuario IN VARCHAR2,
-    p_contrasena IN VARCHAR2
+/*++++++++++++++++++| PROCEDIMIENTOS |++++++++++++++++++*/
+
+-- Autenticacion de usuario --
+CREATE OR REPLACE PROCEDURE Authenticate_User (
+    p_username IN VARCHAR2,
+    p_password IN VARCHAR2,
+    p_auth_status OUT NUMBER
 )
-IS
+AS
+    v_count NUMBER;
 BEGIN
-    INSERT INTO Usuarios (nombre_usuario, contrasena)
-    VALUES (p_nombre_usuario, p_contrasena);
-    COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Usuario insertado correctamente.');
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        DBMS_OUTPUT.PUT_LINE('Error al insertar usuario: ' || SQLERRM);
-END;
-/
-
-BEGIN
-    InsertarUsuario('Miguel', '789');
-END;
-/
-
--- Eliminar --
-CREATE OR REPLACE PROCEDURE EliminarUsuario (
-    p_id_usuario IN NUMBER
-)
-IS
-BEGIN
-    DELETE FROM Usuarios WHERE id_usuario = p_id_usuario;
-    COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Usuario eliminado correctamente.');
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        DBMS_OUTPUT.PUT_LINE('Error al eliminar usuario: ' || SQLERRM);
-END;
-/
-
-BEGIN
-    EliminarUsuario(); --ID del usuario a eliminar
-END;
-/
-
--- Mostrar --
-CREATE OR REPLACE PROCEDURE MostrarUsuario(
-    p_id_usuario IN NUMBER
-)
-IS
-    v_id_usuario Usuarios.id_usuario%TYPE;
-    v_nombre_usuario Usuarios.nombre_usuario%TYPE;
-    v_rol Usuarios.rol%TYPE;
-BEGIN
-    -- Seleccionar la informaci?n del usuario
-    SELECT id_usuario, nombre_usuario, rol
-    INTO v_id_usuario, v_nombre_usuario, v_rol
+    -- Verificar si las credenciales son v?lidas
+    SELECT COUNT(*) INTO v_count
     FROM Usuarios
-    WHERE id_usuario = p_id_usuario;
+    WHERE nombre_usuario = p_username AND contrasena = p_password;
     
-    -- Mostrar la informaci?n del usuario
-    DBMS_OUTPUT.PUT_LINE('ID de Usuario: ' || v_id_usuario);
-    DBMS_OUTPUT.PUT_LINE('Nombre de Usuario: ' || v_nombre_usuario);
-    DBMS_OUTPUT.PUT_LINE('Rol: ' || v_rol);
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr? un usuario con el ID especificado.');
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error al mostrar el usuario: ' || SQLERRM);
+    -- Asignar 1 si las credenciales son v?lidas, 0 en caso contrario
+    IF v_count > 0 THEN
+        p_auth_status := 1; -- Autenticaci?n exitosa
+    ELSE
+        p_auth_status := 0; -- Autenticaci?n fallida
+    END IF;
 END;
 /
 
-BEGIN
-    MostrarUsuario(); --ID del usuario a mostrar
-END;
-/
-
--- Crear nueva prenda
-CREATE OR REPLACE PROCEDURE InsertarPrenda (
+-- Insertar nuevo producto --
+CREATE OR REPLACE PROCEDURE InsertarNuevoProducto(
     p_nombre_producto IN VARCHAR2,
     p_precio_compra IN NUMBER,
-    p_precio_venta IN NUMBER,
-    p_porcentaje_ganancia IN NUMBER,
     p_imagen IN VARCHAR2
-)
-IS
+) AS
+    v_precio_venta NUMBER;
 BEGIN
-    INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
-    VALUES (p_nombre_producto, p_precio_compra, p_precio_venta, p_porcentaje_ganancia, p_imagen);
+    -- Calcular el precio de venta (50% de ganancia)
+    v_precio_venta := p_precio_compra * 1.5;
+
+    -- Insertar el nuevo producto en la tabla
+    INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+    VALUES (
+        (SELECT COALESCE(MAX(id_producto), 0) + 1 FROM Productos),
+        p_nombre_producto,
+        p_precio_compra,
+        v_precio_venta,
+        0.5, -- Porcentaje de ganancia del 50%
+        p_imagen
+    );
+
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Prenda insertada correctamente.');
+    DBMS_OUTPUT.PUT_LINE('Producto insertado correctamente.');
 EXCEPTION
     WHEN OTHERS THEN
         ROLLBACK;
-        DBMS_OUTPUT.PUT_LINE('Error al insertar prenda: ' || SQLERRM);
-END;
+        DBMS_OUTPUT.PUT_LINE('Error al insertar el producto: ' || SQLERRM);
+END InsertarNuevoProducto;
 /
 
---Ejecutamos
-EXEC InsertarPrenda('Camisa', 20, 40, 100, 'imagen_cami.jpg');
+/*++++++++++++++++++| FUNCIONES |++++++++++++++++++*/
 
--- Eliminar prenda
-CREATE OR REPLACE PROCEDURE EliminarPrenda (
+CREATE OR REPLACE FUNCTION MostrarPrendaF (
     p_id_producto IN NUMBER
-)
+) RETURN VARCHAR2
 IS
+    v_info_prenda VARCHAR2(4000); -- Tipo de datos para almacenar la información de la prenda
 BEGIN
-    DELETE FROM Productos WHERE id_producto = p_id_producto;
-    COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Prenda eliminada correctamente.');
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        DBMS_OUTPUT.PUT_LINE('Error al eliminar prenda: ' || SQLERRM);
-END;
-/
-
---Ejecutamos
-EXEC EliminarPrenda(148);
-
--- Modificar prenda
-CREATE OR REPLACE PROCEDURE ModificarPrenda (
-    p_id_producto IN NUMBER,
-    p_nombre_producto IN VARCHAR2 := NULL,
-    p_precio_compra IN NUMBER := NULL,
-    p_precio_venta IN NUMBER := NULL,
-    p_porcentaje_ganancia IN NUMBER := NULL,
-    p_imagen IN VARCHAR2 := NULL
-)
-IS
-BEGIN
-    UPDATE Productos
-    SET nombre_producto = COALESCE(p_nombre_producto, nombre_producto),
-        precio_compra = COALESCE(p_precio_compra, precio_compra),
-        precio_venta = COALESCE(p_precio_venta, precio_venta),
-        porcentaje_ganancia = COALESCE(p_porcentaje_ganancia, porcentaje_ganancia),
-        imagen = COALESCE(p_imagen, imagen)
-    WHERE id_producto = p_id_producto;
-    COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Prenda modificada correctamente.');
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        DBMS_OUTPUT.PUT_LINE('Error al modificar prenda: ' || SQLERRM);
-END;
-/
-
---Ejecutamos
-EXEC ModificarPrenda(1, 'Nuevo nombre', NULL, 50, NULL, NULL);
-
--- Mostrar prenda
-CREATE OR REPLACE PROCEDURE MostrarPrenda (
-    p_id_producto IN NUMBER
-)
-IS
-    v_id_producto Productos.id_producto%TYPE;
-    v_nombre_producto Productos.nombre_producto%TYPE;
-    v_precio_compra Productos.precio_compra%TYPE;
-    v_precio_venta Productos.precio_venta%TYPE;
-    v_porcentaje_ganancia Productos.porcentaje_ganancia%TYPE;
-    v_imagen Productos.imagen%TYPE;
-BEGIN
-    SELECT id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen
-    INTO v_id_producto, v_nombre_producto, v_precio_compra, v_precio_venta, v_porcentaje_ganancia, v_imagen
+    SELECT 'ID Producto: ' || id_producto || CHR(10) ||
+           ' |Nombre Producto: ' || nombre_producto || CHR(10) ||
+           ' |Precio Compra: ' || precio_compra || CHR(10) ||
+           ' |Precio Venta: ' || precio_venta || CHR(10) ||
+           ' |Porcentaje Ganancia: ' || porcentaje_ganancia || CHR(10) ||
+           ' |Imagen: ' || imagen
+    INTO v_info_prenda
     FROM Productos
     WHERE id_producto = p_id_producto;
     
-    DBMS_OUTPUT.PUT_LINE('ID Producto: ' || v_id_producto);
-    DBMS_OUTPUT.PUT_LINE('Nombre Producto: ' || v_nombre_producto);
-    DBMS_OUTPUT.PUT_LINE('Precio Compra: ' || v_precio_compra);
-    DBMS_OUTPUT.PUT_LINE('Precio Venta: ' || v_precio_venta);
-    DBMS_OUTPUT.PUT_LINE('Porcentaje Ganancia: ' || v_porcentaje_ganancia);
-    DBMS_OUTPUT.PUT_LINE('Imagen: ' || v_imagen);
+    RETURN v_info_prenda;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr? una prenda con el ID especificado.');
+        RETURN 'No se encontró una prenda con el ID especificado.';
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error al mostrar la prenda: ' || SQLERRM);
+        RETURN 'Error al mostrar la prenda: ' || SQLERRM;
 END;
 /
 
 --Ejecutamos
-EXEC MostrarPrenda(1);
+SELECT MostrarPrendaF (85) FROM Productos;
+
+/*++++++++++++++++++| PAQUETES |++++++++++++++++++*/
+
+CREATE OR REPLACE PACKAGE CRUD_PRODUCTOS AS
+
+    -- Procedimiento para insertar una nueva prenda
+    PROCEDURE InsertarPrenda(
+        p_nombre_producto IN VARCHAR2,
+        p_precio_compra IN NUMBER,
+        p_precio_venta IN NUMBER,
+        p_porcentaje_ganancia IN NUMBER,
+        p_imagen IN VARCHAR2
+    );
+
+    -- Procedimiento para mostrar información de una prenda por su ID
+    PROCEDURE MostrarPrenda(
+        p_cursor OUT SYS_REFCURSOR
+    );
+
+    -- Procedimiento para modificar una prenda
+    PROCEDURE ModificarPrenda(
+        p_id_producto IN NUMBER,
+        p_nombre_producto IN VARCHAR2 := NULL,
+        p_precio_compra IN NUMBER := NULL,
+        p_precio_venta IN NUMBER := NULL,
+        p_porcentaje_ganancia IN NUMBER := NULL,
+        p_imagen IN VARCHAR2 := NULL
+    );
+
+    -- Procedimiento para eliminar una prenda por su ID
+    PROCEDURE EliminarPrenda(
+        p_id_producto IN NUMBER
+    );
+
+END CRUD_PRODUCTOS;
+/
+
+CREATE OR REPLACE PACKAGE BODY CRUD_PRODUCTOS AS
+
+    -- Procedimiento para insertar una nueva prenda
+    PROCEDURE InsertarPrenda(
+        p_nombre_producto IN VARCHAR2,
+        p_precio_compra IN NUMBER,
+        p_precio_venta IN NUMBER,
+        p_porcentaje_ganancia IN NUMBER,
+        p_imagen IN VARCHAR2
+    ) AS
+    BEGIN
+        INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+        VALUES (p_nombre_producto, p_precio_compra, p_precio_venta, p_porcentaje_ganancia, p_imagen);
+        COMMIT;
+    END InsertarPrenda;
+
+    -- Procedimiento para mostrar información de todas las prendas
+    PROCEDURE MostrarPrenda(
+        p_cursor OUT SYS_REFCURSOR
+    ) AS
+    BEGIN
+        OPEN p_cursor FOR
+        SELECT nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen
+        FROM Productos;
+    END MostrarPrenda;
+
+    -- Procedimiento para modificar una prenda
+    PROCEDURE ModificarPrenda(
+        p_id_producto IN NUMBER,
+        p_nombre_producto IN VARCHAR2 := NULL,
+        p_precio_compra IN NUMBER := NULL,
+        p_precio_venta IN NUMBER := NULL,
+        p_porcentaje_ganancia IN NUMBER := NULL,
+        p_imagen IN VARCHAR2 := NULL
+    ) AS
+    BEGIN
+        UPDATE Productos
+        SET nombre_producto = COALESCE(p_nombre_producto, nombre_producto),
+            precio_compra = COALESCE(p_precio_compra, precio_compra),
+            precio_venta = COALESCE(p_precio_venta, precio_venta),
+            porcentaje_ganancia = COALESCE(p_porcentaje_ganancia, porcentaje_ganancia),
+            imagen = COALESCE(p_imagen, imagen)
+        WHERE id_producto = p_id_producto;
+        COMMIT;
+    END ModificarPrenda;
+
+    -- Procedimiento para eliminar una prenda por su ID
+    PROCEDURE EliminarPrenda(
+        p_id_producto IN NUMBER
+    ) AS
+    BEGIN
+        DELETE FROM Productos
+        WHERE id_producto = p_id_producto;
+        COMMIT;
+    END EliminarPrenda;
+
+END CRUD_PRODUCTOS;
+
+
+DROP PACKAGE CRUD_PRODUCTOS;
+
+/*++++++++++++++++++| EXPRESIONES REGULARES |++++++++++++++++++*/
+
+CREATE OR REPLACE TRIGGER AsignarCategoriaYSexo
+AFTER INSERT ON Productos
+FOR EACH ROW
+BEGIN
+    -- Asignar categoría basada en el nombre del producto utilizando expresiones regulares
+    IF REGEXP_LIKE(:NEW.nombre_producto, 'PANTALON', 'i') THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Pantalones'), :NEW.id_producto);
+    ELSIF REGEXP_LIKE(:NEW.nombre_producto, 'BLUSA', 'i') THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Blusas'), :NEW.id_producto);
+    ELSIF REGEXP_LIKE(:NEW.nombre_producto, '(CHAQUETA|CARDIGAN|GABARDINA|PARKA)', 'i') THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Chaquetas'), :NEW.id_producto);
+    ELSIF REGEXP_LIKE(:NEW.nombre_producto, '(DEPORTIVO|SPORT)', 'i') THEN
+        INSERT INTO Productos_Categorias (id_categoria, id_producto)
+        VALUES ((SELECT id_categoria FROM Categorias WHERE nombre_categoria = 'Ropa deportiva'), :NEW.id_producto);
+    END IF;
+    
+    -- Asignar sexo basado en el nombre del producto utilizando expresiones regulares
+    IF REGEXP_LIKE(:NEW.nombre_producto, '(MUJER|FEMENINO|BLUSA)', 'i') THEN
+        INSERT INTO Productos_Sexo (id_sexo, id_producto)
+        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Mujer'), :NEW.id_producto);
+    ELSIF REGEXP_LIKE(:NEW.nombre_producto, '(HOMBRE|MASCULINO)', 'i') THEN
+        INSERT INTO Productos_Sexo (id_sexo, id_producto)
+        VALUES ((SELECT id_sexo FROM Sexo WHERE nombre_sexo = 'Hombre'), :NEW.id_producto);
+    END IF;
+END;
+/
+
+
+/*++++++++++++++++++| SECUENCIAS |++++++++++++++++++*/
+
+-- Creaci?n de secuencia para el id_usuario en la tabla Usuarios
+CREATE SEQUENCE seq_id_usuario
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creaci?n de secuencia para el id_sexo en la tabla Sexo
+CREATE SEQUENCE seq_id_sexo
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+    
+-- Creaci?n de secuencia para el id_categoria en la tabla Categorias
+CREATE SEQUENCE seq_id_categoria
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creaci?n de secuencia para el id_talla en la tabla Tallas
+CREATE SEQUENCE seq_id_talla
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+
+-- Creaci?n de secuencia para el id_producto en la tabla Productos
+CREATE SEQUENCE seq_id_producto
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOMAXVALUE;
+    
+    
+/*++++++++++++++++++| TRIGGERS |++++++++++++++++++*/
+
+-- Creaci?n del trigger para asignar el id_usuario autom?ticamente en la tabla Usuarios
+CREATE OR REPLACE TRIGGER tr_id_usuario
+BEFORE INSERT ON Usuarios
+FOR EACH ROW
+BEGIN
+    :NEW.id_usuario := seq_id_usuario.NEXTVAL;
+END;
+/
+
+-- Creaci?n del trigger para asignar el id_sexo autom?ticamente en la tabla Sexo
+CREATE OR REPLACE TRIGGER tr_id_sexo
+BEFORE INSERT ON Sexo
+FOR EACH ROW
+BEGIN
+    :NEW.id_sexo := seq_id_sexo.NEXTVAL;
+END;
+/
+
+-- Creaci?n del trigger para asignar el id_categoria autom?ticamente en la tabla Categorias
+CREATE OR REPLACE TRIGGER tr_id_categoria
+BEFORE INSERT ON Categorias
+FOR EACH ROW
+BEGIN
+    :NEW.id_categoria := seq_id_categoria.NEXTVAL;
+END;
+/
+
+-- Creaci?n del trigger para asignar el id_talla autom?ticamente en la tabla Tallas
+CREATE OR REPLACE TRIGGER tr_id_talla
+BEFORE INSERT ON Tallas
+FOR EACH ROW
+BEGIN
+    :NEW.id_talla := seq_id_talla.NEXTVAL;
+END;
+/
+
+-- Creaci?n del trigger para asignar el id_producto autom?ticamente en la tabla Productos
+CREATE OR REPLACE TRIGGER tr_id_producto
+BEFORE INSERT ON Productos
+FOR EACH ROW
+BEGIN
+    :NEW.id_producto := seq_id_producto.NEXTVAL;
+END;
+/
+
+
+/*++++++++++++++++++| CURSORES |++++++++++++++++++*/
+
+CREATE OR REPLACE PROCEDURE MostrarUsuarios
+IS
+    CURSOR usuarios_cursor IS
+        SELECT id_usuario, nombre_usuario, contrasena, rol
+        FROM Usuarios;
+BEGIN
+    -- Abrir el cursor y mostrar la información de los usuarios
+    FOR usuario IN usuarios_cursor LOOP
+        DBMS_OUTPUT.PUT_LINE('ID Usuario: ' || usuario.id_usuario);
+        DBMS_OUTPUT.PUT_LINE('Nombre Usuario: ' || usuario.nombre_usuario);
+        DBMS_OUTPUT.PUT_LINE('Contraseña: ' || usuario.contrasena);
+        DBMS_OUTPUT.PUT_LINE('Rol: ' || usuario.rol);
+        DBMS_OUTPUT.PUT_LINE('-------------------------');
+    END LOOP;
+END;
+
+EXEC MostrarUsuarios;
+
+
+/*++++++++++++++++++| CURSORES DE SISTEMA |++++++++++++++++++*/
 
 CREATE OR REPLACE PROCEDURE ObtenerProductos (
     productos_cursor OUT SYS_REFCURSOR
@@ -671,7 +714,7 @@ BEGIN
     FROM Productos;
 END;
 /
-
+--Ejecutamos
 DECLARE
     productos_cursor SYS_REFCURSOR;
     id_producto NUMBER;
@@ -688,7 +731,6 @@ BEGIN
     CLOSE productos_cursor;
 END;
 /
-SELECT id_producto, nombre_producto, imagen, precio_venta FROM Productos;
 
 --Procedimiento almacenado que solo muestre pantalones
 CREATE OR REPLACE PROCEDURE ObtenerProductosPantalon (
@@ -718,6 +760,7 @@ BEGIN
     END LOOP;
     CLOSE productos_cursor;
 END;
+
 
 --Procedimiento almacenado que solo muestre blusas
 CREATE OR REPLACE PROCEDURE ObtenerProductosBlusas (
@@ -868,5 +911,157 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('ID_PRODUCTO: ' || id_producto || ', NOMBRE_PRODUCTO: ' || nombre_producto || ', IMAGEN: ' || imagen || ', PRECIO_VENTA: ' || precio_venta);
     END LOOP;
     CLOSE productos_cursor;
+END;
+/
+
+
+/*++++++++++++++++++| EXCEPCIONES |++++++++++++++++++*/
+
+-- Crear nueva prenda
+CREATE OR REPLACE PROCEDURE InsertarPrenda (
+    p_nombre_producto IN VARCHAR2,
+    p_precio_compra IN NUMBER,
+    p_precio_venta IN NUMBER,
+    p_porcentaje_ganancia IN NUMBER,
+    p_imagen IN VARCHAR2
+)
+IS
+BEGIN
+    INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+    VALUES (p_nombre_producto, p_precio_compra, p_precio_venta, p_porcentaje_ganancia, p_imagen);
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Prenda insertada correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al insertar prenda: ' || SQLERRM);
+END;
+/
+
+--Ejecutamos
+EXEC InsertarPrenda('Camisa', 20, 40, 100, 'imagen_cami.jpg');
+
+-- Eliminar prenda
+CREATE OR REPLACE PROCEDURE EliminarPrenda (
+    p_id_producto IN NUMBER
+)
+IS
+BEGIN
+    DELETE FROM Productos WHERE id_producto = p_id_producto;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Prenda eliminada correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al eliminar prenda: ' || SQLERRM);
+END;
+/
+
+--Ejecutamos
+EXEC EliminarPrenda(1);
+
+-- Modificar prenda
+CREATE OR REPLACE PROCEDURE ModificarPrenda (
+    p_id_producto IN NUMBER,
+    p_nombre_producto IN VARCHAR2 := NULL,
+    p_precio_compra IN NUMBER := NULL,
+    p_precio_venta IN NUMBER := NULL,
+    p_porcentaje_ganancia IN NUMBER := NULL,
+    p_imagen IN VARCHAR2 := NULL
+)
+IS
+BEGIN
+    UPDATE Productos
+    SET nombre_producto = COALESCE(p_nombre_producto, nombre_producto),
+        precio_compra = COALESCE(p_precio_compra, precio_compra),
+        precio_venta = COALESCE(p_precio_venta, precio_venta),
+        porcentaje_ganancia = COALESCE(p_porcentaje_ganancia, porcentaje_ganancia),
+        imagen = COALESCE(p_imagen, imagen)
+    WHERE id_producto = p_id_producto;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Prenda modificada correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al modificar prenda: ' || SQLERRM);
+END;
+/
+
+--Ejecutamos
+EXEC ModificarPrenda(131, 'Nuevo nombre', NULL, 50, NULL, NULL);
+
+
+CREATE OR REPLACE PROCEDURE InsertarUsuario (
+    p_nombre_usuario IN VARCHAR2,
+    p_contrasena IN VARCHAR2
+)
+IS
+BEGIN
+    INSERT INTO Usuarios (nombre_usuario, contrasena)
+    VALUES (p_nombre_usuario, p_contrasena);
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Usuario insertado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al insertar usuario: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    InsertarUsuario('Miguel', '789');
+END;
+/
+
+-- Eliminar --
+CREATE OR REPLACE PROCEDURE EliminarUsuario (
+    p_id_usuario IN NUMBER
+)
+IS
+BEGIN
+    DELETE FROM Usuarios WHERE id_usuario = p_id_usuario;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Usuario eliminado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al eliminar usuario: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    EliminarUsuario(); --ID del usuario a eliminar
+END;
+/
+
+-- Mostrar --
+CREATE OR REPLACE PROCEDURE MostrarUsuario(
+    p_id_usuario IN NUMBER
+)
+IS
+    v_id_usuario Usuarios.id_usuario%TYPE;
+    v_nombre_usuario Usuarios.nombre_usuario%TYPE;
+    v_rol Usuarios.rol%TYPE;
+BEGIN
+    -- Seleccionar la informaci?n del usuario
+    SELECT id_usuario, nombre_usuario, rol
+    INTO v_id_usuario, v_nombre_usuario, v_rol
+    FROM Usuarios
+    WHERE id_usuario = p_id_usuario;
+    
+    -- Mostrar la informaci?n del usuario
+    DBMS_OUTPUT.PUT_LINE('ID de Usuario: ' || v_id_usuario);
+    DBMS_OUTPUT.PUT_LINE('Nombre de Usuario: ' || v_nombre_usuario);
+    DBMS_OUTPUT.PUT_LINE('Rol: ' || v_rol);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontr? un usuario con el ID especificado.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error al mostrar el usuario: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    MostrarUsuario(); --ID del usuario a mostrar
 END;
 /
