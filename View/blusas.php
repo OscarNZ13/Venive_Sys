@@ -21,9 +21,9 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
 
 <body>
     <section class="layout">
-    <div class="header">
+        <div class="header">
             <h1>
-                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario']))?'../View/blusas.php':'../View/login.php'?>">
+                <a style="text-decoration: none;" href="<?php echo (isset($_SESSION['Usuario'])) ? '../View/blusas.php' : '../View/login.php' ?>">
                     Venive
                 </a>
             </h1>
@@ -102,14 +102,13 @@ $productosblusa = $indexController->ObtenerProductosBlusas();
                                             <td><img src="../Public/img/<?= $productosblusa['IMAGEN'] ?>" alt="<?= $productosblusa['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
-                                                <form action="../Controller/product_controller.php" method="POST">
+                                                    <form action="../View/edit_product.php" method="POST">
                                                         <input type="hidden" name="id_producto" value="<?php echo $producto_id ?>">
                                                         <input type="hidden" name="accion" value="editar"> <!-- Campo para identificar la acción -->
                                                         <button class="btn-editar-prenda" type="submit">
                                                             <b>Editar</b>
                                                         </button>
                                                     </form>
-
                                                     <form action="../Controller/product_controller.php" method="POST">
                                                         <input type="hidden" name="id_producto_eliminar" value="<?php echo $producto_id ?>">
                                                         <input type="hidden" name="accion" value="eliminar"> <!-- Campo para identificar la acción -->

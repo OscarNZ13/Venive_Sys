@@ -1,0 +1,83 @@
+body,
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Times New Roman', Times, serif, Geneva, Tahoma, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 3px;
+    padding: 0;
+    height: 100%;
+    background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #b0b0b0 100px), repeating-linear-gradient(#000000, #3900ff);
+    background-color: #b0b0b0;
+}
+
+body {
+    display: flex;
+    /* Usar flexbox para centrar verticalmente el contenido */
+    justify-content: center;
+    /* Centrar horizontalmente el contenido */
+    align-items: center;
+    /* Centrar verticalmente el contenido */
+}
+
+.Modify-Box {
+    color: white;
+    width: 450px;
+    background: rgba(0, 0, 0, 0.425);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    /* Utilizar flexbox */
+    flex-direction: column;
+    /* Organizar los elementos verticalmente */
+    justify-content: center;
+    /* Centrar verticalmente los elementos */
+    align-items: center;
+    /* Centrar horizontalmente los elementos */
+    padding: 20px;
+    /* Añade un poco de espacio dentro del box */
+    padding-bottom: 50px;
+}
+
+.h1-modify {
+    margin-left: 20px;
+}
+
+.input-nombre-prenda,
+.input-Precio-Compra,
+.input-Precio-Venta,
+.input-Porcentaje-Ganancia,
+.input-imagen {
+    width: 80%;
+    /* Ajusta el ancho de los campos de texto */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.Btn-Modify {
+    width: 80%;
+    /* Ajusta el ancho del botón */
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #008cff;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Btn-Modify:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    /* Ajusta el tamaño de fuente según sea necesario */
+    margin-top: 5px;
+    /* Espacio entre el mensaje de error y los campos de entrada */
+}

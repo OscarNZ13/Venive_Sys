@@ -35,6 +35,9 @@ CREATE TABLE Productos (
     imagen VARCHAR2(2000)
 );
 
+DROP TABLE Productos;
+DELETE FROM Productos;
+
 -- Crear tabla "Inventario"
 CREATE TABLE Inventario (
     id_producto NUMBER,
@@ -45,6 +48,7 @@ CREATE TABLE Inventario (
     FOREIGN KEY (id_talla) REFERENCES Tallas(id_talla) -- Clave for?nea para la tabla Tallas
 );
 
+DROP TABLE Inventario;
 
 -- Crear tabla "Productos_Categorias"
 CREATE TABLE Productos_Categorias (
@@ -55,6 +59,7 @@ CREATE TABLE Productos_Categorias (
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
 
+DROP TABLE Productos_Categorias;
 
 -- Crear tabla "Productos_Sexo"
 CREATE TABLE Productos_Sexo (
@@ -65,17 +70,8 @@ CREATE TABLE Productos_Sexo (
     FOREIGN KEY (id_sexo) REFERENCES Sexo(id_sexo)
 );
 
-DROP TABLE Usuarios;
-DROP TABLE Sexo;
-DROP TABLE Categorias;
-DROP TABLE Tallas;
-DROP TABLE Productos;
-DROP TABLE Inventario;
 DROP TABLE Productos_Sexo;
-DROP TABLE Productos_Categorias;
 
-DELETE FROM productos;
-DELETE FROM Categorias;
 
 /*++++++++++++++++++| INSERTS |++++++++++++++++++*/
 
@@ -466,6 +462,7 @@ END;
 --Ejecutamos
 SELECT MostrarPrendaF (85) FROM Productos;
 
+
 /*++++++++++++++++++| PAQUETES |++++++++++++++++++*/
 
 CREATE OR REPLACE PACKAGE CRUD_PRODUCTOS AS
@@ -481,7 +478,7 @@ CREATE OR REPLACE PACKAGE CRUD_PRODUCTOS AS
 
     -- Procedimiento para mostrar información de una prenda por su ID
     PROCEDURE MostrarPrenda(
-        p_cursor OUT SYS_REFCURSOR
+        p_id_producto IN NUMBER
     );
 
     -- Procedimiento para modificar una prenda
@@ -518,14 +515,22 @@ CREATE OR REPLACE PACKAGE BODY CRUD_PRODUCTOS AS
         COMMIT;
     END InsertarPrenda;
 
-    -- Procedimiento para mostrar información de todas las prendas
+    -- Procedimiento para mostrar información de una prenda por su ID
     PROCEDURE MostrarPrenda(
-        p_cursor OUT SYS_REFCURSOR
+        p_id_producto IN NUMBER
     ) AS
+        v_nombre_producto Productos.nombre_producto%TYPE;
+        v_precio_compra Productos.precio_compra%TYPE;
+        v_precio_venta Productos.precio_venta%TYPE;
+        v_porcentaje_ganancia Productos.porcentaje_ganancia%TYPE;
+        v_imagen Productos.imagen%TYPE;
     BEGIN
-        OPEN p_cursor FOR
         SELECT nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen
-        FROM Productos;
+        INTO v_nombre_producto, v_precio_compra, v_precio_venta, v_porcentaje_ganancia, v_imagen
+        FROM Productos
+        WHERE id_producto = p_id_producto;
+
+        DBMS_OUTPUT.PUT_LINE('Nombre: ' || v_nombre_producto || ', Precio compra: ' || v_precio_compra || ', Precio venta: ' || v_precio_venta || ', Porcentaje ganancia: ' || v_porcentaje_ganancia || ', Imagen: ' || v_imagen);
     END MostrarPrenda;
 
     -- Procedimiento para modificar una prenda
@@ -559,9 +564,8 @@ CREATE OR REPLACE PACKAGE BODY CRUD_PRODUCTOS AS
     END EliminarPrenda;
 
 END CRUD_PRODUCTOS;
+/
 
-
-DROP PACKAGE CRUD_PRODUCTOS;
 
 /*++++++++++++++++++| EXPRESIONES REGULARES |++++++++++++++++++*/
 
@@ -704,6 +708,44 @@ EXEC MostrarUsuarios;
 
 
 /*++++++++++++++++++| CURSORES DE SISTEMA |++++++++++++++++++*/
+
+CREATE OR REPLACE PROCEDURE EditarProducto (
+    p_id_producto IN NUMBER,
+    p_nombre_producto IN VARCHAR2 := NULL,
+    p_precio_compra IN NUMBER := NULL,
+    p_precio_venta IN NUMBER := NULL,
+    p_porcentaje_ganancia IN NUMBER := NULL,
+    p_imagen IN VARCHAR2 := NULL
+)
+IS
+BEGIN
+    UPDATE Productos
+    SET nombre_producto = COALESCE(p_nombre_producto, nombre_producto),
+        precio_compra = COALESCE(p_precio_compra, precio_compra),
+        precio_venta = COALESCE(p_precio_venta, precio_venta),
+        porcentaje_ganancia = COALESCE(p_porcentaje_ganancia, porcentaje_ganancia),
+        imagen = COALESCE(p_imagen, imagen)
+    WHERE id_producto = p_id_producto;
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Producto modificado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error al modificar el producto: ' || SQLERRM);
+END;
+
+BEGIN
+    EditarProducto(
+        p_id_producto => 129,  -- ID del producto que deseas modificar
+        p_nombre_producto => 'Nuevo nombre',  -- Nuevo nombre del producto
+        p_precio_compra => 25.99,  -- Nuevo precio de compra
+        p_precio_venta => 39.99,  -- Nuevo precio de venta
+        p_porcentaje_ganancia => 50,  -- Nuevo porcentaje de ganancia
+        p_imagen => 'nueva_imagen.jpg'  -- Nueva URL de la imagen del producto
+    );
+END;
+
 
 CREATE OR REPLACE PROCEDURE ObtenerProductos (
     productos_cursor OUT SYS_REFCURSOR
