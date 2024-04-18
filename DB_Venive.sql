@@ -379,26 +379,16 @@ DELETE FROM Productos_Categorias;
 /*++++++++++++++++++| PROCEDIMIENTOS |++++++++++++++++++*/
 
 -- Autenticacion de usuario --
-CREATE OR REPLACE PROCEDURE Authenticate_User (
+CREATE OR REPLACE PROCEDURE GetUserByUsername (
     p_username IN VARCHAR2,
-    p_password IN VARCHAR2,
-    p_auth_status OUT NUMBER
-)
-AS
-    v_count NUMBER;
+    user_cursor OUT SYS_REFCURSOR
+) AS
 BEGIN
-    -- Verificar si las credenciales son v?lidas
-    SELECT COUNT(*) INTO v_count
+    OPEN user_cursor FOR
+    SELECT *
     FROM Usuarios
-    WHERE nombre_usuario = p_username AND contrasena = p_password;
-    
-    -- Asignar 1 si las credenciales son v?lidas, 0 en caso contrario
-    IF v_count > 0 THEN
-        p_auth_status := 1; -- Autenticaci?n exitosa
-    ELSE
-        p_auth_status := 0; -- Autenticaci?n fallida
-    END IF;
-END;
+    WHERE nombre_usuario = p_username;
+END GetUserByUsername;
 /
 
 -- Insertar nuevo producto --

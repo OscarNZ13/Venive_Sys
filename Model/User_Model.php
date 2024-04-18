@@ -5,24 +5,39 @@ include('../Db/Connection_db.php');
 
 class UserModel
 {
-    public function authenticateUser($username, $password, $conn)
-    {
-        // Obtener el hash de la contraseña almacenada en la base de datos
-        $sql = "SELECT contrasena FROM Usuarios WHERE nombre_usuario = :username";
-        $stmt = oci_parse($conn, $sql);
+    public function authenticateUser($username, $password, $conn) {
+        // Inicializar la variable $user_cursor como un recurso de cursor
+        $user_cursor = oci_new_cursor($conn);
+    
+        // Llama al procedimiento almacenado para obtener el registro de usuario
+        $stmt = oci_parse($conn, "BEGIN GetUserByUsername(:username, :user_cursor); END;");
         oci_bind_by_name($stmt, ':username', $username);
+        oci_bind_by_name($stmt, ':user_cursor', $user_cursor, -1, OCI_B_CURSOR);
+    
+        // Ejecutar el procedimiento almacenado
         oci_execute($stmt);
-
-        $row = oci_fetch_assoc($stmt);
-        $stored_hash = $row['CONTRASENA'];
-
-        // Verificar si el usuario existe y la contraseña es correcta
-        if ($stored_hash && password_verify($password, $stored_hash)) {
+    
+        // Verificar errores en la ejecución
+        $error = oci_error($stmt);
+        if ($error) {
+            echo "Error: " . $error['message'];
+            exit;
+        }
+    
+        // Recupera el resultado del cursor
+        oci_execute($user_cursor);
+    
+        // Recupera el usuario de la consulta
+        $user = oci_fetch_assoc($user_cursor);
+    
+        // Verifica si el usuario existe y si la contraseña es válida
+        if ($user && password_verify($password, $user['CONTRASENA'])) {
             return true; // Autenticación exitosa
         } else {
-            return false; // Autenticación fallida
+            return false; // Autenticación fallida o usuario no encontrado
         }
     }
+    
 
     public function RegisterUser($username, $password, $conn)
     {
