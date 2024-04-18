@@ -701,20 +701,20 @@ EXEC MostrarUsuarios;
 
 CREATE OR REPLACE PROCEDURE EditarProducto (
     p_id_producto IN NUMBER,
-    p_nombre_producto IN VARCHAR2 := NULL,
-    p_precio_compra IN NUMBER := NULL,
-    p_precio_venta IN NUMBER := NULL,
-    p_porcentaje_ganancia IN NUMBER := NULL,
-    p_imagen IN VARCHAR2 := NULL
+    p_nombre_producto IN VARCHAR2 DEFAULT NULL,
+    p_precio_compra IN NUMBER DEFAULT NULL,
+    p_precio_venta IN NUMBER DEFAULT NULL,
+    p_porcentaje_ganancia IN NUMBER DEFAULT NULL,
+    p_imagen IN VARCHAR2 DEFAULT NULL
 )
 IS
 BEGIN
     UPDATE Productos
-    SET nombre_producto = COALESCE(p_nombre_producto, nombre_producto),
-        precio_compra = COALESCE(p_precio_compra, precio_compra),
-        precio_venta = COALESCE(p_precio_venta, precio_venta),
-        porcentaje_ganancia = COALESCE(p_porcentaje_ganancia, porcentaje_ganancia),
-        imagen = COALESCE(p_imagen, imagen)
+    SET nombre_producto = NVL(p_nombre_producto, nombre_producto),
+        precio_compra = NVL(p_precio_compra, precio_compra),
+        precio_venta = NVL(p_precio_venta, precio_venta),
+        porcentaje_ganancia = NVL(p_porcentaje_ganancia, porcentaje_ganancia),
+        imagen = NVL(p_imagen, imagen)
     WHERE id_producto = p_id_producto;
     
     COMMIT;
@@ -727,12 +727,12 @@ END;
 
 BEGIN
     EditarProducto(
-        p_id_producto => 129,  -- ID del producto que deseas modificar
-        p_nombre_producto => 'Nuevo nombre',  -- Nuevo nombre del producto
-        p_precio_compra => 25.99,  -- Nuevo precio de compra
-        p_precio_venta => 39.99,  -- Nuevo precio de venta
-        p_porcentaje_ganancia => 50,  -- Nuevo porcentaje de ganancia
-        p_imagen => 'nueva_imagen.jpg'  -- Nueva URL de la imagen del producto
+        p_id_producto => 129,
+        p_nombre_producto => 'Nuevo nombre',
+        p_precio_compra => NULL,
+        p_precio_venta => 20.5,
+        p_porcentaje_ganancia => NULL,
+        p_imagen => 'nueva_imagen.jpg'
     );
 END;
 

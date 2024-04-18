@@ -57,39 +57,37 @@ class ProductosModel {
     }
     
     public function editarProducto($id_producto, $nombre_producto, $precio_compra, $precio_venta, $porcentaje_ganancia, $imagen, $conn) {
-    // Declarar la sentencia SQL para llamar al procedimiento almacenado
-    $sql = "BEGIN EditarProducto(:p_id_producto, :p_nombre_producto, :p_precio_compra, :p_precio_venta, :p_porcentaje_ganancia, :p_imagen); END;";
-
-    // Preparar la sentencia
-    $stmt = oci_parse($conn, $sql);
-
-    // Vincular los parámetros
-    oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
-    oci_bind_by_name($stmt, ':p_nombre_producto', $nombre_producto);
-    oci_bind_by_name($stmt, ':p_precio_compra', $precio_compra);
-    oci_bind_by_name($stmt, ':p_precio_venta', $precio_venta);
-    oci_bind_by_name($stmt, ':p_porcentaje_ganancia', $porcentaje_ganancia);
-    oci_bind_by_name($stmt, ':p_imagen', $imagen);
-
-    // Ejecutar la sentencia
-    if (oci_execute($stmt)) {
-        // Confirmar la transacción
-        oci_commit($conn);
-        // Liberar recursos
-        oci_free_statement($stmt);
-        // Devolver true si se modificó correctamente
-        return true;
-    } else {
-        // Obtener el error
-        $e = oci_error($stmt);
-        // Liberar recursos
-        oci_free_statement($stmt);
-        // Imprimir el error (puedes manejarlo de otra forma si lo prefieres)
-        echo "Error al modificar el producto: " . htmlentities($e['message']);
-        // Devolver false si hubo un error
-        return false;
+        // Declarar la sentencia SQL para llamar al procedimiento almacenado
+        $sql = "BEGIN EditarProducto(:p_id_producto, :p_nombre_producto, :p_precio_compra, :p_precio_venta, :p_porcentaje_ganancia, :p_imagen); END;";
+    
+        // Preparar la sentencia
+        $stmt = oci_parse($conn, $sql);
+    
+        // Vincular los parámetros
+        oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
+        oci_bind_by_name($stmt, ':p_nombre_producto', $nombre_producto);
+        oci_bind_by_name($stmt, ':p_precio_compra', $precio_compra);
+        oci_bind_by_name($stmt, ':p_precio_venta', $precio_venta);
+        oci_bind_by_name($stmt, ':p_porcentaje_ganancia', $porcentaje_ganancia);
+        oci_bind_by_name($stmt, ':p_imagen', $imagen);
+    
+        // Ejecutar la sentencia
+        if (oci_execute($stmt)) {
+            // Confirmar la transacción
+            oci_commit($conn);
+            // Liberar recursos
+            oci_free_statement($stmt);
+            // Devolver true si se modificó correctamente
+            return true;
+        } else {
+            // Obtener el error
+            $e = oci_error($stmt);
+            // Liberar recursos
+            oci_free_statement($stmt);
+            // Devolver el mensaje de error
+            return "Error al modificar el producto: " . $e['message'];
+        }
     }
-}
 
     public function obtenerProductos($conn)
     {

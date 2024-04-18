@@ -50,14 +50,14 @@ if (isset($_POST['accion']) && $_POST['accion'] == 'eliminar') {
 
 // Verificar si se recibieron los datos del formulario de modificación de producto
 if (isset($_POST['btn_modificar'])) {
-    // Verificar si se recibieron todos los datos del formulario
-    if (isset($_POST['id_producto']) && isset($_POST['nombre_producto']) && isset($_POST['precio_compra']) && isset($_POST['precio_venta']) && isset($_POST['porcentaje_ganancia']) && isset($_POST['imagen'])) {
+    // Verificar si se recibieron todos los datos necesarios del formulario
+    if (isset($_POST['id_producto']) && isset($_POST['nombre_producto']) && isset($_POST['precio_venta']) && isset($_POST['imagen'])) {
         // Obtener los datos del formulario
         $id_producto = $_POST['id_producto'];
         $nombre_producto = $_POST['nombre_producto'];
-        $precio_compra = $_POST['precio_compra'];
         $precio_venta = $_POST['precio_venta'];
-        $porcentaje_ganancia = $_POST['porcentaje_ganancia'];
+        $precio_compra = isset($_POST['precio_compra']) ? $_POST['precio_compra'] : NULL; // Corregido: se asigna el precio de compra solo si está presente
+        $porcentaje_ganancia = isset($_POST['porcentaje_ganancia']) ? $_POST['porcentaje_ganancia'] : NULL;
         $imagen = $_POST['imagen'];
 
         // Crear una instancia del modelo de productos
@@ -72,13 +72,13 @@ if (isset($_POST['btn_modificar'])) {
             header("Location: ../View/index.php");
             exit();
         } else {
-            // Ocurrió un error, redirigir a alguna página de error mostrando el mensaje
-            $_SESSION['error'] = "Error en la edición del producto";
+            // Ocurrió un error, redirigir a la página de edición con el mensaje de error
+            $_SESSION['error'] = $resultado;
             header("location: ../View/edit_product.php");
             exit();
         }
     } else {
-        // No se recibieron todos los datos del formulario, redirigir a alguna página de error
+        // No se recibieron todos los datos del formulario, redirigir a la página de edición con un mensaje de error
         header("Location: ../View/edit_product.php?mensaje=No se recibieron todos los datos del formulario");
         exit();
     }

@@ -21,23 +21,15 @@ session_start();
             <input type="hidden" name="id_producto" value="<?php echo $_POST['id_producto']; ?>">
 
             <p>Nombre del Producto
-                <input type="text" placeholder="Nombre del producto" name="nombre_producto" class="input-nombre-prenda" required>
-            </p>
-
-            <p>Precio de Compra
-                <input type="number" placeholder="Precio de compra" name="precio_compra" class="input-Precio-Compra" required>
+                <input type="text" placeholder="Nombre del producto" name="nombre_producto" class="input-nombre-prenda">
             </p>
 
             <p>Precio de Venta
-                <input type="number" placeholder="Precio de venta" name="precio_venta" class="input-Precio-Venta" required>
-            </p>
-
-            <p>Porcentaje de Ganancia
-                <input type="number" placeholder="Porcentaje de ganancia" name="porcentaje_ganancia" class="input-Porcentaje-Ganancia" required>
+                <input type="number" placeholder="Precio de venta" name="precio_venta" class="input-Precio-Venta">
             </p>
 
             <p>Imagen
-                <input type="text" placeholder="URL de la imagen" name="imagen" class="input-imagen" required>
+                <input type="text" placeholder="URL de la imagen" name="imagen" class="input-imagen">
             </p>
 
             <button class="Btn-Modify" type="submit" value="modify" name="btn_modificar">Modificar</button>
