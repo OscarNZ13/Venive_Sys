@@ -95,12 +95,14 @@ $productos = $indexController->obtenerProductos();
                                 </thead>
                                 <tbody>
                                     <?php foreach ($productos as $producto) : ?>
-                                        <?php $producto_id = $producto['ID_PRODUCTO'] ?>
+                                        <?php $producto_id = $producto['ID_PRODUCTO'];
+                                        $producto_img = $producto['IMAGEN'];
+                                        ?>
                                         <tr>
                                             <td><?= $producto['ID_PRODUCTO'] ?></td>
                                             <td><?= $producto['NOMBRE_PRODUCTO'] ?></td>
                                             <td><?= $producto['PRECIO_VENTA'] ?></td>
-                                            <td><img src="../Public/img/<? echo $producto['IMAGEN'] ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
+                                            <td><img src="<? echo $producto_img ?>" alt="<?= $producto['NOMBRE_PRODUCTO'] ?>"></td>
                                             <?php if (isset($_SESSION['Usuario'])) { ?>
                                                 <td>
                                                     <form action="../View/edit_product.php" method="POST">
