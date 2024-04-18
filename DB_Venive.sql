@@ -950,28 +950,37 @@ END;
 /*++++++++++++++++++| EXCEPCIONES |++++++++++++++++++*/
 
 -- Crear nueva prenda
-CREATE OR REPLACE PROCEDURE InsertarPrenda (
+create or replace NONEDITIONABLE PROCEDURE InsertarNuevoProducto(
     p_nombre_producto IN VARCHAR2,
     p_precio_compra IN NUMBER,
-    p_precio_venta IN NUMBER,
-    p_porcentaje_ganancia IN NUMBER,
     p_imagen IN VARCHAR2
-)
-IS
+) AS
+    v_precio_venta NUMBER;
 BEGIN
-    INSERT INTO Productos (nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
-    VALUES (p_nombre_producto, p_precio_compra, p_precio_venta, p_porcentaje_ganancia, p_imagen);
+    -- Calcular el precio de venta (50% de ganancia)
+    v_precio_venta := p_precio_compra * 1.5;
+
+    -- Insertar el nuevo producto en la tabla
+    INSERT INTO Productos (id_producto, nombre_producto, precio_compra, precio_venta, porcentaje_ganancia, imagen)
+    VALUES (
+        (SELECT COALESCE(MAX(id_producto), 0) + 1 FROM Productos),
+        p_nombre_producto,
+        p_precio_compra,
+        v_precio_venta,
+        0.5, -- Porcentaje de ganancia del 50%
+        p_imagen
+    );
+
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Prenda insertada correctamente.');
+    DBMS_OUTPUT.PUT_LINE('Producto insertado correctamente.');
 EXCEPTION
     WHEN OTHERS THEN
         ROLLBACK;
-        DBMS_OUTPUT.PUT_LINE('Error al insertar prenda: ' || SQLERRM);
-END;
-/
+        DBMS_OUTPUT.PUT_LINE('Error al insertar el producto: ' || SQLERRM);
+END InsertarNuevoProducto;
 
 --Ejecutamos
-EXEC InsertarPrenda('Camisa', 20, 40, 100, 'imagen_cami.jpg');
+EXEC InsertarPrenda('Camisa', 2000, 'imagen_cami.jpg');
 
 -- Eliminar prenda
 CREATE OR REPLACE PROCEDURE EliminarPrenda (
