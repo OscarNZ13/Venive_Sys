@@ -40,6 +40,9 @@ session_start();
 
         </form>
 
+        <!-- Enlace para redirigir al formulario de registro -->
+        <p class="Texto-Registro">¿No tienes una cuenta? <a href="register.php" class="link-FRegistro">Regístrate aquí</a></p>
+
     </div>
 
 </body>
